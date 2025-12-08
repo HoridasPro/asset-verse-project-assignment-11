@@ -3,11 +3,11 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import { photoUpload } from "../../Utils/UploadPhoto";
 
-const RegisterAsHRManager = () => {
+const RegisterAsEmployee = () => {
   const { register, handleSubmit } = useForm();
   const { registerUser, userProfileUpdate } = useAuth();
 
-  const handleHrRegister = async (data) => {
+  const handleEmployeeRegister = async (data) => {
     try {
       // 1️⃣ Upload photo
       const imageFile = data.photo[0];
@@ -22,7 +22,7 @@ const RegisterAsHRManager = () => {
         photoURL: photoURL,
       };
       userProfileUpdate(userProfile).then(() => {
-        console.log("user profile update done for the HR Manager");
+        console.log("user profile update done");
       });
 
       // 4️⃣ Create employee object
@@ -30,7 +30,7 @@ const RegisterAsHRManager = () => {
         name: data.name,
         email: data.email,
         photo: photoURL,
-        role: "HR Manager",
+        role: "employee",
       };
 
       console.log("Employee Info:", employeeInfo);
@@ -43,16 +43,17 @@ const RegisterAsHRManager = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <form
-        onSubmit={handleSubmit(handleHrRegister)}
+        onSubmit={handleSubmit(handleEmployeeRegister)}
         className="bg-white p-8 rounded-lg shadow-md w-full max-w-md space-y-4"
       >
         <h2 className="text-2xl font-bold text-center">
-          HR Manager Registration
+          Employee Registration
         </h2>
 
         <input
           type="text"
-          placeholder="HR Manager Name"
+          install
+          placeholder="Employee Name"
           className="input input-bordered w-full"
           {...register("name", { required: true })}
         />
@@ -72,20 +73,6 @@ const RegisterAsHRManager = () => {
         />
 
         <input
-          type="text"
-          placeholder="Phone (optional)"
-          className="input input-bordered w-full"
-          {...register("phone", { required: true })}
-        />
-
-        <input
-          type="text"
-          placeholder="Company Name"
-          className="input input-bordered w-full"
-          {...register("companyName", { required: true })}
-        />
-
-        <input
           type="file"
           accept="image/*"
           className="file-input file-input-bordered w-full"
@@ -94,11 +81,11 @@ const RegisterAsHRManager = () => {
         />
 
         <button type="submit" className="btn btn-primary w-full">
-          Register HR Manager
+          Register As Employee
         </button>
       </form>
     </div>
   );
 };
 
-export default RegisterAsHRManager;
+export default RegisterAsEmployee;
