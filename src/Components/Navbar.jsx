@@ -1,35 +1,34 @@
- 
-import React from "react";
+import React, { useState } from "react";
 import { Link, NavLink } from "react-router";
 import useAuth from "../hooks/useAuth";
 
 const Navbar = () => {
   const { user, logOutUser } = useAuth();
+  const [isOpen, setIsOpen] = useState(false);
+  // const [currentUser, setCurrenctUser] = useState(null);
+  console.log(user);
 
   const links = (
     <>
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
-      {user ? (
-        ""
-      ) : (
-        <li>
-          <NavLink to="/registerAsEmployee">Join as Employee</NavLink>
-        </li>
-      )}
-      {user ? (
-        ""
-      ) : (
-        <li>
-          <NavLink to="/registerAsHRManager">Join as HR Manager</NavLink>
-        </li>
+      {!user && (
+        <>
+          <li>
+            <NavLink to="/registerAsEmployee">Join as Employee</NavLink>
+          </li>
+          <li>
+            <NavLink to="/registerAsHRManager">Join as HR Manager</NavLink>
+          </li>
+        </>
       )}
     </>
   );
 
   const handleLogOut = () => {
     logOutUser().catch((error) => console.log(error));
+    setIsOpen(false);
   };
 
   return (
@@ -60,7 +59,7 @@ const Navbar = () => {
             {links}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">AssetVerse</a>
+        <Link to='/hr-dashboard' className="btn btn-ghost text-xl">AssetVerse</Link>
       </div>
 
       {/* Center */}
@@ -71,69 +70,77 @@ const Navbar = () => {
       {/* Right */}
       <div className="navbar-end">
         {user ? (
-          <div className="dropdown dropdown-end">
-            {/* Profile Image Button */}
-            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-              <div className="w-10 rounded-full">
-                <img
-                  src={
-                    user.photoURL
-                      ? user.photoURL
-                      : "https://i.ibb.co/3pQ9Q6q/default-user.png"
-                  }
-                  alt="User"
-                />
-              </div>
-            </label>
+          <div className="relative">
+            {/* Profile Image */}
+            <img
+              src={
+                user?.photoURL
+                  ? user.photoURL
+                  : "https://i.ibb.co/3pQ9Q6q/default-user.png"
+              }
+              alt="Profile"
+              className="w-10 h-10 rounded-full cursor-pointer"
+              onClick={() => setIsOpen(!isOpen)}
+            />
 
             {/* Dropdown Menu */}
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-10 p-2 shadow bg-base-100 rounded-box w-52"
-            >
-              {/* Display Name */}
-              <li className="font-semibold text-center">
-                {user.displayName ? user.displayName : "User"}
-              </li>
+            {isOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded z-10">
+                <ul>
+                  <li className="p-2 text-center font-semibold border-b">
+                    {user?.displayName || "User"}
+                  </li>
 
-              {/* EMPLOYEE DROPDOWN */}
-              {user.role === "employee" && (
-                <>
-                  <li>
-                    <Link to="/request-asset">Request Asset</Link>
-                  </li>
-                  <li>
-                    <Link to="/my-assets">My Assets</Link>
-                  </li>
-                  <li>
-                    <Link to="/my-team">My Team</Link>
-                  </li>
-                </>
-              )}
+                  {/* Employee Menu */}
+                  {user?.role === "employee" && (
+                    <>
+                      <li className="p-2 hover:bg-gray-200">
+                        <Link to="/request-asset">Request Asset</Link>
+                      </li>
+                      <li className="p-2 hover:bg-gray-200">
+                        <Link to="/my-assets">My Assets</Link>
+                      </li>
+                      <li className="p-2 hover:bg-gray-200">
+                        <Link to="/my-team">My Team</Link>
+                      </li>
+                    </>
+                  )}
 
-              {/* HR MANAGER DROPDOWN */}
-              {user.role === "HR Manager" && (
-                <>
-                  <li>
-                    <Link to="/asset-list">Asset List</Link>
-                  </li>
-                  <li>
-                    <Link to="/add-asset">Add Asset</Link>
-                  </li>
-                  <li>
-                    <Link to="/all-requests">All Requests</Link>
-                  </li>
-                  <li>
-                    <Link to="/employee-list">Employee List</Link>
-                  </li>
-                </>
-              )}
+                  {/* HR Manager Menu */}
+                  {user?.role === "manager" && (
+                    <>
+                      <li className="p-2 hover:bg-gray-200">
+                        <Link to="/asset-list">Asset List</Link>
+                      </li>
+                      <li className="p-2 hover:bg-gray-200">
+                        <Link to="/add-asset">Add Asset</Link>
+                      </li>
+                      <li className="p-2 hover:bg-gray-200">
+                        <Link to="/all-requests">All Requests</Link>
+                      </li>
+                      <li className="p-2 hover:bg-gray-200">
+                        <Link to="/employee-list">Employee List</Link>
+                      </li>
+                      <li className="p-2 hover:bg-gray-200">
+                        <button
+                          onClick={handleLogOut}
+                          className="w-full text-left"
+                        >
+                          Logout
+                        </button>
+                      </li>
+                    </>
+                  )}
 
-              {/* Logout */}
-              <li>
-                <button onClick={handleLogOut}>Logout</button>
-              </li>
-            </ul>
+                  {/* Logout */}
+                  <li className="p-2 hover:bg-gray-200">
+                    <button onClick={handleLogOut} className="w-full text-left">
+                      Logout
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            )}
           </div>
         ) : (
           <Link to="/login" className="btn">

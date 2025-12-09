@@ -6,10 +6,14 @@ import JoinAsHRManager from "../Pages/JoinAsHRManager/JoinAsHRManager";
 import RegisterAsHRManager from "../Pages/RegisterAsHRManager/RegisterAsHRManager";
 import RegisterAsEmployee from "../Pages/RegisterAsEmployee/RegisterAsEmployee";
 import Login from "../Pages/Login/Login";
+import ErrorPage from "../Error/ErrorPage";
+import HrDashboardLayout from "../Layout/HrDashboardLayout";
+import AddAsset from "../Pages/HrDashboard/AddAsset";
 
 const router = createBrowserRouter([
   {
     path: "/",
+    errorElement: <ErrorPage />,
     element: <MainLayout />,
     children: [
       {
@@ -35,6 +39,16 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <Login />,
+      },
+    ],
+  },
+  {
+    path: "hr-dashboard",
+    element: <HrDashboardLayout />,
+    children: [
+      {
+        path: "addasset",
+        element: <AddAsset />,
       },
     ],
   },
