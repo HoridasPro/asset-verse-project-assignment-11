@@ -4,7 +4,7 @@ import { RiPlayListAddFill } from "react-icons/ri";
 import { NavLink } from "react-router";
 import { Link, Outlet } from "react-router";
 
-const HrDashboardLayout = () => {
+const EmDashboardLayout = () => {
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -32,7 +32,7 @@ const HrDashboardLayout = () => {
               <path d="M14 10l2 2l-2 2"></path>
             </svg>
           </label>
-          <div className="px-4">HR Manager Dashboard</div>
+          <div className="px-4">Employee Dashboard</div>
         </nav>
         {/* Page content here */}
         <Outlet></Outlet>
@@ -77,27 +77,27 @@ const HrDashboardLayout = () => {
               <NavLink
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Add Asset"
-                to="/hr-dashboard/addasset"
+                to="/em-dashboard/request-asset"
               >
                 <MdWebAsset className="text-xl"></MdWebAsset>
-                <span className="is-drawer-close:hidden">Add Asset</span>
+                <span className="is-drawer-close:hidden">Request Assets</span>
               </NavLink>
             </li>
 
             {/* add list */}
-            <li>
+            {/* <li>
               <NavLink
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Asset List"
-                to="/hr-dashboard/assetList"
+                to="/em-dashboard/request-asset"
               >
                 <RiPlayListAddFill className="text-xl"></RiPlayListAddFill>
                 <span className="is-drawer-close:hidden">Asset List</span>
               </NavLink>
-            </li>
+            </li> */}
 
             {/* payment history */}
-            <li>
+            {/* <li>
               <NavLink
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Payment History"
@@ -106,7 +106,7 @@ const HrDashboardLayout = () => {
                 <MdOutlinePayment className="text-xl"></MdOutlinePayment>
                 <span className="is-drawer-close:hidden">Payment History</span>
               </NavLink>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>
@@ -114,4 +114,4 @@ const HrDashboardLayout = () => {
   );
 };
 
-export default HrDashboardLayout;
+export default EmDashboardLayout;

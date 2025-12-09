@@ -59,7 +59,13 @@ const Navbar = () => {
             {links}
           </ul>
         </div>
-        <Link to='/hr-dashboard' className="btn btn-ghost text-xl">AssetVerse</Link>
+        {user ? (
+          <Link to="/hr-dashboard" className="btn btn-ghost text-xl">
+            AssetVerse
+          </Link>
+        ) : (
+          <a className="btn btn-ghost text-xl">AssetVerse</a>
+        )}
       </div>
 
       {/* Center */}

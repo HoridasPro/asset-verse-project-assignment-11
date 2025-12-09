@@ -9,6 +9,9 @@ import Login from "../Pages/Login/Login";
 import ErrorPage from "../Error/ErrorPage";
 import HrDashboardLayout from "../Layout/HrDashboardLayout";
 import AddAsset from "../Pages/HrDashboard/AddAsset";
+import AssetList from "../Pages/HrDashboard/AssetList";
+import EmDashboardLayout from "../Layout/EmDashboardLayout";
+import RequestAsset from "../Pages/EmDashboard/RequestAsset";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +45,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+  // HR dashboard
   {
     path: "hr-dashboard",
     element: <HrDashboardLayout />,
@@ -49,6 +53,21 @@ const router = createBrowserRouter([
       {
         path: "addasset",
         element: <AddAsset />,
+      },
+      {
+        path: "assetList",
+        element: <AssetList />,
+      },
+    ],
+  },
+  // employee dashboard
+  {
+    path: "em-dashboard",
+    element: <EmDashboardLayout />,
+    children: [
+      {
+        path: "request-asset",
+        element:<RequestAsset/>,
       },
     ],
   },

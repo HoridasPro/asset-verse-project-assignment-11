@@ -2,21 +2,34 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { photoUpload } from "../../Utils/UploadPhoto";
 import useAuth from "../../hooks/useAuth";
+import useAxios from "../../hooks/useAxios";
 
 const AddAsset = () => {
   const { register, handleSubmit } = useForm();
   const { userProfileUpdate } = useAuth();
+  const axiosSecure = useAxios();
 
   const handleAddAsset = async (data) => {
-    console.log(data);
     try {
       const imageFile = data.photo[0];
-      const logoURL = await photoUpload(imageFile);
+      const productURL = await photoUpload(imageFile);
 
       await userProfileUpdate({
         displayName: data.name,
-        photoURL: logoURL,
+        productURL: productURL,
       });
+
+      const hrAssetInfo = {
+        productType: data.productType,
+        productName: data.productName,
+        productQuantity: data.productQuantity,
+        productURL: productURL,
+        role: "hr",
+        createdAt: new Date(),
+      };
+      // to post for the hr manager
+      await axiosSecure.post("hrAssets", hrAssetInfo);
+      console.log("after the post", hrAssetInfo);
     } catch (error) {
       console.log(error);
     }
@@ -34,7 +47,7 @@ const AddAsset = () => {
           <label className="label mr-4">
             <input
               type="radio"
-              {...register("parcelType", { required: true })}
+              {...register("productType", { required: true })}
               value="Returnable"
               className="radio"
               defaultChecked
@@ -46,7 +59,7 @@ const AddAsset = () => {
           <label className="label mr-4">
             <input
               type="radio"
-              {...register("parcelType", { required: true })}
+              {...register("productType", { required: true })}
               value="Non-returnable"
               className="radio"
               defaultChecked
@@ -69,9 +82,9 @@ const AddAsset = () => {
             <label className="label text-xl">Product Quantity</label>
             <input
               type="number"
-              {...register("product-quantity", { required: true })}
+              {...register("productQuantity", { required: true })}
               className="input w-full"
-              placeholder="product-quantity"
+              placeholder="productQuantity"
             />
           </fieldset>
           <fieldset className="flex flex-col mt-5">
