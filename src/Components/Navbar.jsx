@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router";
 import useAuth from "../hooks/useAuth";
+import useRole from "../hooks/useRole";
 
 const Navbar = () => {
+  const { role } = useRole();
   const { user, logOutUser } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   // const [currentUser, setCurrenctUser] = useState(null);
@@ -59,13 +61,7 @@ const Navbar = () => {
             {links}
           </ul>
         </div>
-        {user ? (
-          <Link to="/hr-dashboard" className="btn btn-ghost text-xl">
-            AssetVerse
-          </Link>
-        ) : (
-          <a className="btn btn-ghost text-xl">AssetVerse</a>
-        )}
+        <a className="btn btn-ghost text-xl">AssetVerse</a>
       </div>
 
       {/* Center */}
@@ -98,43 +94,39 @@ const Navbar = () => {
                   </li>
 
                   {/* Employee Menu */}
-                  {user?.role === "employee" && (
+                  {role === "employee" && (
                     <>
                       <li className="p-2 hover:bg-gray-200">
-                        <Link to="/request-asset">Request Asset</Link>
-                      </li>
-                      <li className="p-2 hover:bg-gray-200">
-                        <Link to="/my-assets">My Assets</Link>
-                      </li>
-                      <li className="p-2 hover:bg-gray-200">
-                        <Link to="/my-team">My Team</Link>
+                        <Link to="/em-dashboard">Dashboard</Link>
                       </li>
                     </>
                   )}
 
                   {/* HR Manager Menu */}
-                  {user?.role === "manager" && (
+                  {role === "hr" && (
                     <>
                       <li className="p-2 hover:bg-gray-200">
-                        <Link to="/asset-list">Asset List</Link>
+                        <Link to="/hr-dashboard">Dashboard</Link>
+                      </li>
+                      {/* <li className="p-2 hover:bg-gray-200">
+                        <Link to="/hr-dashboard/add-asset">Add Asset</Link>
                       </li>
                       <li className="p-2 hover:bg-gray-200">
-                        <Link to="/add-asset">Add Asset</Link>
-                      </li>
-                      <li className="p-2 hover:bg-gray-200">
-                        <Link to="/all-requests">All Requests</Link>
-                      </li>
-                      <li className="p-2 hover:bg-gray-200">
-                        <Link to="/employee-list">Employee List</Link>
-                      </li>
-                      <li className="p-2 hover:bg-gray-200">
+                        <Link to="/hr-dashboard/all-requests">
+                          All Requests
+                        </Link>
+                      </li> */}
+                      {/* <li className="p-2 hover:bg-gray-200">
+                        <Link to="hr-dashboard/employee-list">Employee List</Link>
+                      </li> */}
+                      {/* <li className="p-2 hover:bg-gray-200">
                         <button
                           onClick={handleLogOut}
                           className="w-full text-left"
                         >
                           Logout
                         </button>
-                      </li>
+                      </li> */}
                     </>
                   )}
 

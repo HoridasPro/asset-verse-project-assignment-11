@@ -12,6 +12,12 @@ import AddAsset from "../Pages/HrDashboard/AddAsset";
 import AssetList from "../Pages/HrDashboard/AssetList";
 import EmDashboardLayout from "../Layout/EmDashboardLayout";
 import RequestAsset from "../Pages/EmDashboard/RequestAsset";
+import AllRequests from "../Pages/HrDashboard/AllRequests";
+import MyAssets from "../Pages/EmDashboard/MyAssets";
+import ProfilePage from "../Pages/EmDashboard/ProfilePage";
+import MyTeam from "../Pages/EmDashboard/MyTeam";
+import MyEmployeeList from "../Pages/HrDashboard/MyEmployeeList";
+import UpgradePakage from "../Pages/HrDashboard/UpgradePakage";
 
 const router = createBrowserRouter([
   {
@@ -51,12 +57,24 @@ const router = createBrowserRouter([
     element: <HrDashboardLayout />,
     children: [
       {
-        path: "addasset",
+        path: "add-asset",
         element: <AddAsset />,
       },
       {
-        path: "assetList",
+        path: "asset-List",
         element: <AssetList />,
+      },
+      {
+        path: "all-requests",
+        element: <AllRequests />,
+      },
+      {
+        path: "My-employee",
+        element: <MyEmployeeList />,
+      },
+      {
+        path: "upgrade-pakage",
+        element: <UpgradePakage />,
       },
     ],
   },
@@ -66,8 +84,20 @@ const router = createBrowserRouter([
     element: <EmDashboardLayout />,
     children: [
       {
+        path: "my-assets",
+        element: <MyAssets />,
+      },
+      {
         path: "request-asset",
-        element:<RequestAsset/>,
+        element: <RequestAsset />,
+      },
+      {
+        path: "my-team",
+        element: <MyTeam />,
+      },
+      {
+        path: "profile-page",
+        element: <ProfilePage />,
       },
     ],
   },

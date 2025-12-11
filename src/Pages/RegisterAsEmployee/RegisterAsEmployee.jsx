@@ -42,12 +42,13 @@ const RegisterAsEmployee = ({ setUser }) => {
         name: data.name,
         email: data.email,
         dateOfBirth: data.dateOfBirth,
+        photoURL: photoURL,
         role: "employee",
         createdAt: new Date(),
       };
 
       // 5️⃣ Send employee data to backend
-      const res = await axiosSecure.post("/employees", employeeInfo);
+      const res = await axiosSecure.post("/em-users", employeeInfo);
       if (setUser) {
         setUser(res.data);
       }
@@ -121,8 +122,6 @@ const RegisterAsEmployee = ({ setUser }) => {
           {errors.name && <p className="text-red-500 text-sm">Required</p>}
         </div>
 
-     
-
         <div>
           <label className="font-medium">Photo</label>
           <input
@@ -163,7 +162,7 @@ const RegisterAsEmployee = ({ setUser }) => {
 
         <button
           disabled={loading}
-          className="w-full bg-blue-600 text-white py-2 rounded"
+          className="w-full bg-blue-600 text-white py-2 rounded cursor-pointer"
         >
           {loading ? "Processing..." : "Register"}
         </button>

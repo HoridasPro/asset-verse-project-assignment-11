@@ -1,10 +1,15 @@
 import React from "react";
+import { BiGitPullRequest } from "react-icons/bi";
 import { MdOutlinePayment, MdWebAsset } from "react-icons/md";
 import { RiPlayListAddFill } from "react-icons/ri";
 import { NavLink } from "react-router";
 import { Link, Outlet } from "react-router";
+import useRole from "../hooks/useRole";
+import { FaUsers } from "react-icons/fa";
+import { GrUpgrade } from "react-icons/gr";
 
 const HrDashboardLayout = () => {
+  const { role } = useRole();
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -32,7 +37,7 @@ const HrDashboardLayout = () => {
               <path d="M14 10l2 2l-2 2"></path>
             </svg>
           </label>
-          <div className="px-4">HR Manager Dashboard</div>
+          <div className="px-4 text-2xl font-bold">HR Manager Dashboard</div>
         </nav>
         {/* Page content here */}
         <Outlet></Outlet>
@@ -72,29 +77,70 @@ const HrDashboardLayout = () => {
               </Link>
             </li>
 
-            {/* List item */}
-            <li>
-              <NavLink
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Add Asset"
-                to="/hr-dashboard/addasset"
-              >
-                <MdWebAsset className="text-xl"></MdWebAsset>
-                <span className="is-drawer-close:hidden">Add Asset</span>
-              </NavLink>
-            </li>
+            {role === "hr" && (
+              <>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Asset List"
+                    to="/hr-dashboard/asset-list"
+                  >
+                    <RiPlayListAddFill className="text-xl"></RiPlayListAddFill>
+                    <span className="is-drawer-close:hidden">
+                      Asset List (Main Dashboard)
+                    </span>
+                  </NavLink>
+                </li>
+                {/* List item */}
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Add Asset"
+                    to="/hr-dashboard/add-asset"
+                  >
+                    <MdWebAsset className="text-xl"></MdWebAsset>
+                    <span className="is-drawer-close:hidden">Add Asset</span>
+                  </NavLink>
+                </li>
 
-            {/* add list */}
-            <li>
-              <NavLink
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Asset List"
-                to="/hr-dashboard/assetList"
-              >
-                <RiPlayListAddFill className="text-xl"></RiPlayListAddFill>
-                <span className="is-drawer-close:hidden">Asset List</span>
-              </NavLink>
-            </li>
+                {/* add list */}
+
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="All Requests"
+                    to="/hr-dashboard/all-requests"
+                  >
+                    <BiGitPullRequest className="text-xl"></BiGitPullRequest>
+                    <span className="is-drawer-close:hidden">All Requests</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="My-Employees"
+                    to="/hr-dashboard/My-employee"
+                  >
+                    <FaUsers FaUsers className="text-xl"></FaUsers>
+                    <span className="is-drawer-close:hidden">
+                      My-employees List
+                    </span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Upgrade-Pakage"
+                    to="/hr-dashboard/upgrade-pakage"
+                  >
+                    <GrUpgrade GrUpgrade className="text-xl"></GrUpgrade>
+                    <span className="is-drawer-close:hidden">
+                      Upgrade Package
+                    </span>
+                  </NavLink>
+                </li>
+              </>
+            )}
 
             {/* payment history */}
             <li>

@@ -44,7 +44,7 @@ const RegisterAsHRManager = ({ setUser }) => {
         createdAt: new Date(),
       };
       // 5️⃣ Send employee data to backend
-      const res = await axiosSecure.post("/hr-managers", managerInfo);
+      const res = await axiosSecure.post("/hr-users", managerInfo);
       if (setUser) {
         setUser(res.data);
       }
@@ -120,7 +120,7 @@ const RegisterAsHRManager = ({ setUser }) => {
 
         <button
           disabled={loading}
-          className="w-full bg-blue-600 text-white py-2 rounded"
+          className="w-full bg-blue-600 text-white py-2 rounded cursor-pointer"
         >
           {loading ? "Processing..." : "Register"}
         </button>
