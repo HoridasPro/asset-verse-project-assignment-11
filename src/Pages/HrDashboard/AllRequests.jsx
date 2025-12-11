@@ -46,6 +46,7 @@ const AllRequests = () => {
 
   return (
     <div className="overflow-x-auto">
+      <p className="text-2xl font-bold">All Request Aeets : {allRequests.length}</p>
       <table className="table">
         <thead>
           <tr>

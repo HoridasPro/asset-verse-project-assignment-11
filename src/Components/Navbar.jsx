@@ -97,7 +97,7 @@ const Navbar = () => {
                   {role === "employee" && (
                     <>
                       <li className="p-2 hover:bg-gray-200">
-                        <Link to="/em-dashboard">Dashboard</Link>
+                        <Link to="/em-dashboard/my-assets">Dashboard</Link>
                       </li>
                     </>
                   )}
@@ -106,7 +106,7 @@ const Navbar = () => {
                   {role === "hr" && (
                     <>
                       <li className="p-2 hover:bg-gray-200">
-                        <Link to="/hr-dashboard">Dashboard</Link>
+                        <Link to="/hr-dashboard/asset-list">Dashboard</Link>
                       </li>
                       {/* <li className="p-2 hover:bg-gray-200">
                         <Link to="/hr-dashboard/add-asset">Add Asset</Link>

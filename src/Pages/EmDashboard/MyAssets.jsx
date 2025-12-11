@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import useAxios from "../../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
+import Swal from "sweetalert2";
 
 const MyAssets = () => {
   const axiosSecure = useAxios();
   const [searchText, setSearchText] = useState("");
 
   // Filter Type
-  const [filterType, setFilterType] = useState("Returnable");
+  const [filterType, setFilterType] = useState("All");
 
-  const { data: employeeAssets = [] } = useQuery({
+  const { data: employeeAssets = [], refetch } = useQuery({
     queryKey: ["employeeAssets", searchText, filterType],
     queryFn: async () => {
       let url = `/employeeAssets`;
@@ -24,6 +25,28 @@ const MyAssets = () => {
       return res.data;
     },
   });
+
+  // retun button
+  const handleReturn = async (asset) => {
+    Swal.fire({
+      title: "Return Asset?",
+      text: `Are you sure you want to return ${asset.productType}?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, Return",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await axiosSecure.patch(
+          `/employeeAssets/return/${asset._id}`
+        );
+
+        if (res.data.modifiedCount > 0 || res.data.success) {
+          refetch(); // update UI
+          Swal.fire("Returned!", "Your asset has been returned.", "success");
+        }
+      }
+    });
+  };
 
   return (
     <div>
@@ -84,6 +107,7 @@ const MyAssets = () => {
             <th>Request Date</th>
             <th>Approval Date</th>
             <th>Status</th>
+            <th>Actions</th>
           </tr>
         </thead>
 
@@ -111,11 +135,23 @@ const MyAssets = () => {
               <td>
                 <p
                   className={`${
-                    employeeAsset.status === "assigned" ? "text-green-500" : ""
+                    employeeAsset.status === "Approved" ? "text-green-500" : ""
                   }`}
                 >
                   {employeeAsset.status}
                 </p>
+              </td>
+              {/* retun button */}
+              <td>
+                {employeeAsset.status === "Approved" &&
+                  employeeAsset.productType === "Returnable" && (
+                    <button
+                      onClick={() => handleReturn(employeeAsset)}
+                      className="btn btn-sm btn-warning"
+                    >
+                      Return
+                    </button>
+                  )}
               </td>
             </tr>
           ))}
