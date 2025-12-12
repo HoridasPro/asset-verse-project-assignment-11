@@ -17,7 +17,11 @@ import MyAssets from "../Pages/EmDashboard/MyAssets";
 import ProfilePage from "../Pages/EmDashboard/ProfilePage";
 import MyTeam from "../Pages/EmDashboard/MyTeam";
 import MyEmployeeList from "../Pages/HrDashboard/MyEmployeeList";
-import UpgradePakage from "../Pages/HrDashboard/UpgradePakage";
+import UpgradePackage from "../Pages/HrDashboard/UpgradePackage";
+import PaymentHistory from "../Pages/HrDashboard/PaymentHistory";
+import Payment from "../Pages/HrDashboard/Payment";
+import PaymentSuccess from "../Pages/HrDashboard/PaymentSuccess";
+import PaymentCancelled from "../Pages/HrDashboard/PaymentCancelled";
 
 const router = createBrowserRouter([
   {
@@ -74,10 +78,27 @@ const router = createBrowserRouter([
       },
       {
         path: "upgrade-pakage",
-        element: <UpgradePakage />,
+        element: <UpgradePackage />,
+      },
+      {
+        path: "payment-history",
+        element: <PaymentHistory />,
+      },
+      {
+        path: "payment/:employeeId",
+        element: <Payment />,
+      },
+      {
+        path: "payment-success",
+        element: <PaymentSuccess />,
+      },
+      {
+        path: "payment-cancel",
+        element: <PaymentCancelled />,
       },
     ],
   },
+
   // employee dashboard
   {
     path: "em-dashboard",

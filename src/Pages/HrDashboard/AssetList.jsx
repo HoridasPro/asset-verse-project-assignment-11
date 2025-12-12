@@ -7,13 +7,22 @@ import Swal from "sweetalert2";
 const AssetList = () => {
   // const {user}=useAuth()
   const axiosSecure = useAxios();
-  const { data: assets = [], refetch } = useQuery({
+  const {
+    isLoading,
+    data: assets = [],
+    refetch,
+  } = useQuery({
     queryKey: ["assets"],
     queryFn: async () => {
       const res = await axiosSecure.get("/hrAssets");
       return res.data;
     },
   });
+  if (isLoading) {
+    return (
+      <span className="loading loading-bars loading-xl mx-auto flex mt-72"></span>
+    );
+  }
 
   // asset delete
   const handleAssetDelete = (id) => {

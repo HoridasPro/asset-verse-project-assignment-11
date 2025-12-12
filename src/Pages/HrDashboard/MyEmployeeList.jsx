@@ -18,6 +18,14 @@ const MyEmployeeList = () => {
 
   // Filter only employees
   const employees = users.filter((user) => user.role === "employee");
+  // 🟩 NEW: Fetch company info (to get employee limit)
+  const { data: company = {} } = useQuery({
+    queryKey: ["companyInfo"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/company/info"); // এই API তে employeeLimit থাকবে
+      return res.data;
+    },
+  });
 
   // Fetch all employee assigned assets
   const { data: employeeAssets = [] } = useQuery({
@@ -53,8 +61,12 @@ const MyEmployeeList = () => {
 
   return (
     <div>
+      {/* 🟩 UPDATED HEADING — X/Y employees used */}
       <h2 className="text-xl font-bold mb-4 text-center mt-5">
-        My Employee List: {employees.length} employees
+        My Employee List:
+        <span className="text-green-600 ml-2">
+          {employees.length}/{company.employeeLimit || 5} employees used
+        </span>
       </h2>
 
       <div className="overflow-x-auto">
