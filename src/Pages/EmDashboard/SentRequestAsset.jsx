@@ -5,7 +5,7 @@ import useAuth from "../../hooks/useAuth";
 const SentRequestAsset = ({ orderModalRef, selectedAsset }) => {
   const axiosSecure = useAxios();
   const [note, setNote] = useState("");
-  const {user}=useAuth()
+  const { user } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +22,7 @@ const SentRequestAsset = ({ orderModalRef, selectedAsset }) => {
     }
 
     const RequestAssetInfo = {
-      empplyeeName:user.displayName,
+      employeeName: user.displayName,
       productType: selectedAsset.productType,
       productName: selectedAsset.productName,
       productQuantity: selectedAsset.productQuantity,

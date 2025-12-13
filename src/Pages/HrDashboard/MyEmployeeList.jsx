@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
-import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
+import { FaRegTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 
 const MyEmployeeList = () => {

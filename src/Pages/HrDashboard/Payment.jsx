@@ -68,7 +68,7 @@ const Payment = () => {
 
     const paymentInfo = {
       price: employee.price,
-      employeeId: employee._id,
+      managerId: employee._id,
       hr_manager_email: employee.email,
       packageName: employee.packageName || employee.name, // fallback
     };

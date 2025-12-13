@@ -8,7 +8,7 @@ const Navbar = () => {
   const { user, logOutUser } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   // const [currentUser, setCurrenctUser] = useState(null);
-  console.log(user);
+  // console.log(user);
 
   const links = (
     <>

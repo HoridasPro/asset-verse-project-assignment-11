@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
-import { FaEdit, FaRegTrashAlt, FaUserCheck } from "react-icons/fa";
+import { FaUserCheck } from "react-icons/fa";
 // import Swal from "sweetalert2";
 import { IoPersonRemove } from "react-icons/io5";
 import Swal from "sweetalert2";
@@ -16,6 +16,7 @@ const AllRequests = () => {
       return res.data;
     },
   });
+  console.log(allRequests);
 
   const updateAllRequestStatus = (id, status) => {
     const updateInfo = { status: status };
@@ -46,7 +47,9 @@ const AllRequests = () => {
 
   return (
     <div className="overflow-x-auto">
-      <p className="text-2xl font-bold">All Request Aeets : {allRequests.length}</p>
+      <p className="text-2xl font-bold">
+        All Request Aeets : {allRequests.length}
+      </p>
       <table className="table">
         <thead>
           <tr>
@@ -63,7 +66,7 @@ const AllRequests = () => {
             <tr key={allRequest._id}>
               <th>{index + 1}</th>
               <td>
-                <div>{allRequest.empplyeeName}</div>
+                <div>{allRequest.employeeName}</div>
               </td>
               <td>
                 <div className="flex items-center gap-3">
