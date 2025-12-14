@@ -24,6 +24,7 @@ const UpgradePackage = () => {
     try {
       const paymentInfo = {
         price: pkg.price,
+        employeeLimit: pkg.employeeLimit,
         packageId: pkg._id,
         email: user?.email,
         packageName: pkg.packageName, // ✅ FIXED
