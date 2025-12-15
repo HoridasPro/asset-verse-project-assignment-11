@@ -22,6 +22,8 @@ import PaymentHistory from "../Pages/HrDashboard/PaymentHistory";
 import Payment from "../Pages/HrDashboard/Payment";
 import PaymentSuccess from "../Pages/HrDashboard/PaymentSuccess";
 import PaymentCancelled from "../Pages/HrDashboard/PaymentCancelled";
+ 
+// import UserManagement from "../Pages/HrDashboard/UserManagement";
 
 const router = createBrowserRouter([
   {
@@ -58,7 +60,11 @@ const router = createBrowserRouter([
   // HR dashboard
   {
     path: "hr-dashboard",
-    element: <HrDashboardLayout />,
+    element: (
+  
+        <HrDashboardLayout />
+   
+    ),
     children: [
       {
         path: "add-asset",
@@ -96,6 +102,10 @@ const router = createBrowserRouter([
         path: "payment-cancel",
         element: <PaymentCancelled />,
       },
+      // {
+      //   path:'/user-management',
+      //   element:<UserManagement/>
+      // }
     ],
   },
 

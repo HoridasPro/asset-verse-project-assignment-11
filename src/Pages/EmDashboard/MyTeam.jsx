@@ -1,17 +1,38 @@
-import React from "react";
+ import { useState } from "react";
 import CompanySelect from "./CompanySelect";
-import MyTeamMembers from "./MyTeamMembers";
-import MyTeamBirthdays from "./MyTeamBirthDays";
+import EmployeeTable from "./EmployeeTable";
+import EmployeeDetails from "./EmployeeDetails";
 
 const MyTeam = () => {
+  const [selectedCompany, setSelectedCompany] = useState("");
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
+
   return (
-    <div>
-      <h1>this is my team</h1>
-      <CompanySelect />
-      <MyTeamMembers />
-      <MyTeamBirthdays />
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4">My Team</h1>
+
+      {/* Company dropdown */}
+      <CompanySelect
+        selectedCompany={selectedCompany}
+        setSelectedCompany={setSelectedCompany}
+      />
+
+      {/* Layout: left=table, right=details */}
+      <div className="flex mt-6 gap-6">
+        <div className="flex-1">
+          <EmployeeTable
+            selectedCompany={selectedCompany}
+            setSelectedEmployee={setSelectedEmployee}
+          />
+        </div>
+
+        <div className="w-80">
+          <EmployeeDetails selectedEmployee={selectedEmployee} />
+        </div>
+      </div>
     </div>
   );
 };
 
 export default MyTeam;
+ 
