@@ -22,8 +22,9 @@ import PaymentHistory from "../Pages/HrDashboard/PaymentHistory";
 import Payment from "../Pages/HrDashboard/Payment";
 import PaymentSuccess from "../Pages/HrDashboard/PaymentSuccess";
 import PaymentCancelled from "../Pages/HrDashboard/PaymentCancelled";
- 
-// import UserManagement from "../Pages/HrDashboard/UserManagement";
+import UserManagement from "./../Pages/HrDashboard/UserManagement";
+import AdminRoute from "./AdminRoute";
+import Private from "../Private/Private";
 
 const router = createBrowserRouter([
   {
@@ -61,9 +62,9 @@ const router = createBrowserRouter([
   {
     path: "hr-dashboard",
     element: (
-  
+      <Private>
         <HrDashboardLayout />
-   
+      </Private>
     ),
     children: [
       {
@@ -102,10 +103,14 @@ const router = createBrowserRouter([
         path: "payment-cancel",
         element: <PaymentCancelled />,
       },
-      // {
-      //   path:'/user-management',
-      //   element:<UserManagement/>
-      // }
+      {
+        path: "user-management",
+        element: (
+          <AdminRoute>
+            <UserManagement />
+          </AdminRoute>
+        ),
+      },
     ],
   },
 

@@ -36,7 +36,7 @@ const RegisterAsHRManager = ({ setUser }) => {
         companyLogo: logoURL,
         email: data.email,
         dateOfBirth: data.dateOfBirth,
-        role: "hr",
+        role: "users",
         password: data.password,
         packageLimit: 5,
         currentEmployees: 0,

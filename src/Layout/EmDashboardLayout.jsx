@@ -77,7 +77,7 @@ const EmDashboardLayout = () => {
             </li>
 
             {/* List item */}
-            {role === "employee" && (
+            {role === "users" && (
               <>
                 <li>
                   <NavLink

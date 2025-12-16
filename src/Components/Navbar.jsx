@@ -97,16 +97,18 @@ const Navbar = () => {
                   {role === "employee" && (
                     <>
                       <li className="p-2 hover:bg-gray-200">
-                        <Link to="/em-dashboard/my-assets">Dashboard</Link>
+                        <Link to="/em-dashboard/my-assets">
+                          Employee Dashboard
+                        </Link>
                       </li>
                     </>
                   )}
 
                   {/* HR Manager Menu */}
-                  {role === "hr" && (
-                    <>
+                  {/* {role === "admin" && ( */}
+                    {/* <> */}
                       <li className="p-2 hover:bg-gray-200">
-                        <Link to="/hr-dashboard/asset-list">Dashboard</Link>
+                        <Link to="/hr-dashboard/asset-list">HR Dashboard</Link>
                       </li>
                       {/* <li className="p-2 hover:bg-gray-200">
                         <Link to="/hr-dashboard/add-asset">Add Asset</Link>
@@ -127,8 +129,8 @@ const Navbar = () => {
                           Logout
                         </button>
                       </li> */}
-                    </>
-                  )}
+                    {/* </> */}
+                  {/* )} */}
 
                   {/* Logout */}
                   <li className="p-2 hover:bg-gray-200">

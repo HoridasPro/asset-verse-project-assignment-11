@@ -66,7 +66,7 @@ const AssetList = () => {
         </thead>
         <tbody>
           {assets.map((asset, index) => (
-            <tr>
+            <tr key={asset._id}>
               <th>{index + 1}</th>
               <td>
                 <div className="flex items-center gap-3">
