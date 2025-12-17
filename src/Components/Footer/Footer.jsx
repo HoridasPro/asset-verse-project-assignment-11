@@ -91,12 +91,12 @@ const Footer = () => {
           <form className="flex gap-2">
             <input
               type="email"
-              placeholder="Your email"
+              placeholder="horidas@gmail.com"
               className="px-4 py-2 rounded-l-lg text-black w-full"
             />
             <button
               type="submit"
-              className="bg-white text-indigo-700 px-4 py-2 rounded-r-lg font-semibold hover:bg-gray-100 transition"
+              className="bg-white text-indigo-700 px-3 py-2 rounded-r-lg font-semibold hover:bg-gray-100 transition"
             >
               Subscribe
             </button>
