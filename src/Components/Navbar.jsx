@@ -105,32 +105,14 @@ const Navbar = () => {
                   )}
 
                   {/* HR Manager Menu */}
-                  {/* {role === "admin" && ( */}
-                    {/* <> */}
+
+                  {role === "admin" && (
+                    <>
                       <li className="p-2 hover:bg-gray-200">
-                        <Link to="/hr-dashboard/asset-list">HR Dashboard</Link>
+                        <Link to="/hr-dashboard">HR Dashboard</Link>
                       </li>
-                      {/* <li className="p-2 hover:bg-gray-200">
-                        <Link to="/hr-dashboard/add-asset">Add Asset</Link>
-                      </li>
-                      <li className="p-2 hover:bg-gray-200">
-                        <Link to="/hr-dashboard/all-requests">
-                          All Requests
-                        </Link>
-                      </li> */}
-                      {/* <li className="p-2 hover:bg-gray-200">
-                        <Link to="hr-dashboard/employee-list">Employee List</Link>
-                      </li> */}
-                      {/* <li className="p-2 hover:bg-gray-200">
-                        <button
-                          onClick={handleLogOut}
-                          className="w-full text-left"
-                        >
-                          Logout
-                        </button>
-                      </li> */}
-                    {/* </> */}
-                  {/* )} */}
+                    </>
+                  )}
 
                   {/* Logout */}
                   <li className="p-2 hover:bg-gray-200">

@@ -36,7 +36,7 @@ const RegisterAsHRManager = ({ setUser }) => {
         companyLogo: logoURL,
         email: data.email,
         dateOfBirth: data.dateOfBirth,
-        role: "users",
+        role: "user",
         password: data.password,
         packageLimit: 5,
         currentEmployees: 0,
@@ -44,7 +44,7 @@ const RegisterAsHRManager = ({ setUser }) => {
         createdAt: new Date(),
       };
       // 5️⃣ Send employee data to backend
-      const res = await axiosSecure.post("/hr-users", managerInfo);
+      const res = await axiosSecure.post("/users", managerInfo);
       if (setUser) {
         setUser(res.data);
       }

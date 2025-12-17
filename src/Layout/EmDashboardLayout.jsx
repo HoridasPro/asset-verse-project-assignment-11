@@ -6,6 +6,7 @@ import { Link, Outlet } from "react-router";
 import useRole from "../hooks/useRole";
 import { AiFillProfile } from "react-icons/ai";
 import { IoGitPullRequest } from "react-icons/io5";
+import img from "../assets/react.svg";
 
 const EmDashboardLayout = () => {
   const { role } = useRole();
@@ -51,10 +52,15 @@ const EmDashboardLayout = () => {
         <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
           {/* Sidebar content here */}
           <ul className="menu w-full grow">
+            <li>
+              <Link to="/">
+                <img src={img} alt="" />
+              </Link>
+            </li>
             {/* List item */}
             <li>
               <Link
-                to="/"
+                to="/em-dashboard"
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Home Page"
               >
@@ -77,7 +83,7 @@ const EmDashboardLayout = () => {
             </li>
 
             {/* List item */}
-            {role === "users" && (
+            {role === "employee" && (
               <>
                 <li>
                   <NavLink

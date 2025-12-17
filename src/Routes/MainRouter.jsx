@@ -23,8 +23,11 @@ import Payment from "../Pages/HrDashboard/Payment";
 import PaymentSuccess from "../Pages/HrDashboard/PaymentSuccess";
 import PaymentCancelled from "../Pages/HrDashboard/PaymentCancelled";
 import UserManagement from "./../Pages/HrDashboard/UserManagement";
-import AdminRoute from "./AdminRoute";
+
 import Private from "../Private/Private";
+import AdminRoute from "./AdminRoute";
+import DashboardHome from "../Pages/HrDashboard/DashboardHome/DashboardHome";
+// import DashboardHome from "./../Pages/EmDashboard/DashboardHome/DashboardHome";
 
 const router = createBrowserRouter([
   {
@@ -68,24 +71,49 @@ const router = createBrowserRouter([
     ),
     children: [
       {
+        index: true,
+        element: <DashboardHome />,
+      },
+      {
         path: "add-asset",
-        element: <AddAsset />,
+        element: (
+          <AdminRoute>
+            <AddAsset />
+          </AdminRoute>
+        ),
       },
       {
         path: "asset-List",
-        element: <AssetList />,
+        element: (
+          <AdminRoute>
+            <AssetList />
+          </AdminRoute>
+        ),
       },
       {
         path: "all-requests",
-        element: <AllRequests />,
+        element: (
+          <AdminRoute>
+            <AllRequests />
+          </AdminRoute>
+        ),
       },
       {
         path: "My-employee",
-        element: <MyEmployeeList />,
+        element: (
+          <AdminRoute>
+            {" "}
+            <MyEmployeeList />
+          </AdminRoute>
+        ),
       },
       {
         path: "upgrade-pakage",
-        element: <UpgradePackage />,
+        element: (
+          <AdminRoute>
+            <UpgradePackage />
+          </AdminRoute>
+        ),
       },
       {
         path: "payment-history",
@@ -119,6 +147,10 @@ const router = createBrowserRouter([
     path: "em-dashboard",
     element: <EmDashboardLayout />,
     children: [
+      {
+        index: true,
+        element: <DashboardHome />,
+      },
       {
         path: "my-assets",
         element: <MyAssets />,
