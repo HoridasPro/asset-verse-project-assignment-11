@@ -2,4 +2,6 @@
 @plugin "daisyui" {
   themes: light --default;
 }
- 
+/* body{
+  @apply bg-[#282A36] text-white;
+} */

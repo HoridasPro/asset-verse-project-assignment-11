@@ -4,7 +4,7 @@ import { FaClipboardList, FaUserCheck, FaChartBar } from "react-icons/fa";
 const ExtraSections = () => (
   <div>
     {/* How it works */}
-    <section className="py-24 bg-white">
+    <section className="py-1 0 bg-white">
       <div className="max-w-7xl mx-auto px-6 text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-16">
           How AssetVerse Works
@@ -69,14 +69,41 @@ const ExtraSections = () => (
       </div>
     </section>
     {/* Contact CTA */}
-    <section className="py-24 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-center">
+    {/* FAQ Section */}
+    <section className="py-24 bg-gray-100">
+      <div className="max-w-4xl mx-auto px-6">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 text-gray-800">
+          Frequently Asked Questions
+        </h2>
+
+        {[
+          "Is AssetVerse secure?",
+          "Can I upgrade plans?",
+          "Is employee data safe?",
+        ].map((q, i) => (
+          <div
+            key={i}
+            className="bg-white p-6 mb-4 rounded-xl shadow hover:shadow-lg transition"
+          >
+            <h4 className="font-semibold text-gray-900">{q}</h4>
+            <p className="text-gray-600 mt-2">
+              Yes, AssetVerse follows best security and access control
+              practices.
+            </p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* Contact CTA */}
+    <section className="py-24 bg-gray-200 text-gray-900 text-center">
       <h2 className="text-3xl md:text-4xl font-bold mb-6">
         Ready to Use AssetVerse?
       </h2>
-      <p className="mb-10">
+      <p className="mb-10 text-gray-700">
         Start managing assets and employees smarter today.
       </p>
-      <button className="bg-white text-indigo-700 px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition">
+      <button className="bg-indigo-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-indigo-700 transition">
         Get Started
       </button>
     </section>
