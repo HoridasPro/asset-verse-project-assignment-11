@@ -105,7 +105,7 @@ const Footer = () => {
       </div>
 
       <div className="mt-12 border-t border-white/20 pt-6 text-center text-gray-200">
-        © {new Date().getFullYear()} Haridas Dada. All rights reserved.
+        © {new Date().getFullYear()} Haridas Sarker. All rights reserved.
       </div>
     </footer>
   );

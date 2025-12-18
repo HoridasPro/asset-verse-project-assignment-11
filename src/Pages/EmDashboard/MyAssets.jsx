@@ -22,9 +22,11 @@ const MyAssets = () => {
       if (params.length) url += `?${params.join("&")}`;
 
       const res = await axiosSecure.get(url);
+  
       return res.data;
     },
   });
+ 
 
   // retun button
   const handleReturn = async (asset) => {
@@ -130,7 +132,7 @@ const MyAssets = () => {
               <td>{employeeAsset.productName}</td>
               <td>{employeeAsset.productType}</td>
               <td>{employeeAsset.companyName}</td>
-              <td>{employeeAsset.requestDate}</td>
+              <td>{employeeAsset.createdAt}</td>
               <td>{employeeAsset.approvalDate}</td>
               <td>
                 <p

@@ -68,32 +68,6 @@ const ExtraSections = () => (
         ))}
       </div>
     </section>
-    {/* Contact CTA */}
-    {/* FAQ Section */}
-    <section className="py-24 bg-gray-100">
-      <div className="max-w-4xl mx-auto px-6">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 text-gray-800">
-          Frequently Asked Questions
-        </h2>
-
-        {[
-          "Is AssetVerse secure?",
-          "Can I upgrade plans?",
-          "Is employee data safe?",
-        ].map((q, i) => (
-          <div
-            key={i}
-            className="bg-white p-6 mb-4 rounded-xl shadow hover:shadow-lg transition"
-          >
-            <h4 className="font-semibold text-gray-900">{q}</h4>
-            <p className="text-gray-600 mt-2">
-              Yes, AssetVerse follows best security and access control
-              practices.
-            </p>
-          </div>
-        ))}
-      </div>
-    </section>
 
     {/* Contact CTA */}
     <section className="py-24 bg-gray-200 text-gray-900 text-center">

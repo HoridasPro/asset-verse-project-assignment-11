@@ -54,18 +54,27 @@ const UserManagement = () => {
           {hrUsers.map((hrUser, index) => (
             <tr key={hrUser._id}>
               <th>{index + 1}</th>
+
               <td>
-                <div className="flex items-center gap-3">
-                  <div className="avatar">
-                    <div className="mask mask-squircle h-12 w-12">
-                      <img
-                        src={hrUser.companyLogo}
-                        alt="Avatar Tailwind CSS Component"
-                      />
+                <div className="flex flex-col items-center gap-2">
+                  {hrUser?.role === "admin" && (
+                    <div className="avatar">
+                      <div className="mask mask-squircle h-12 w-12">
+                        <img src={hrUser?.companyLogo} alt="Company Logo" />
+                      </div>
                     </div>
-                  </div>
+                  )}
+
+                  {hrUser?.role === "employee" && (
+                    <div className="avatar">
+                      <div className="mask mask-squircle h-10 w-10">
+                        <img src={hrUser?.photoURL} alt="Employee Photo" />
+                      </div>
+                    </div>
+                  )}
                 </div>
               </td>
+
               <td>{hrUser.name}</td>
               <td>{hrUser.companyName}</td>
               <td>{hrUser.email}</td>

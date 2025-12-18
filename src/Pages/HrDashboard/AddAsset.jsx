@@ -1,12 +1,13 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { photoUpload } from "../../Utils/UploadPhoto";
-import useAuth from "../../hooks/useAuth";
+// import useAuth from "../../hooks/useAuth";
 import useAxios from "../../hooks/useAxios";
+import Swal from "sweetalert2";
 
 const AddAsset = () => {
   const { register, handleSubmit } = useForm();
-  const { userProfileUpdate } = useAuth();
+  // const { userProfileUpdate } = useAuth();
   const axiosSecure = useAxios();
 
   const handleAddAsset = async (data) => {
@@ -14,10 +15,10 @@ const AddAsset = () => {
       const imageFile = data.photo[0];
       const productURL = await photoUpload(imageFile);
 
-      await userProfileUpdate({
-        displayName: data.name,
-        productURL: productURL,
-      });
+      // await userProfileUpdate({
+      //   // displayName: data.name,
+      //   // productURL: productURL,
+      // });
 
       const hrAssetInfo = {
         productType: data.productType,
@@ -28,7 +29,17 @@ const AddAsset = () => {
         createdAt: new Date(),
       };
       // to post for the hr manager
-      await axiosSecure.post("hrAssets", hrAssetInfo);
+      await axiosSecure.post("hrAssets", hrAssetInfo).then((res) => {
+        if (res.data.insertedId) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Asset added successfully",
+            showConfirmButton: false,
+            timer: 1800,
+          });
+        }
+      });
       console.log("after the post", hrAssetInfo);
     } catch (error) {
       console.log(error);

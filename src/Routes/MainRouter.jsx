@@ -23,11 +23,12 @@ import Payment from "../Pages/HrDashboard/Payment";
 import PaymentSuccess from "../Pages/HrDashboard/PaymentSuccess";
 import PaymentCancelled from "../Pages/HrDashboard/PaymentCancelled";
 import UserManagement from "./../Pages/HrDashboard/UserManagement";
-
 import Private from "../Private/Private";
 import AdminRoute from "./AdminRoute";
-import DashboardHome from "../Pages/HrDashboard/DashboardHome/DashboardHome";
-// import DashboardHome from "./../Pages/EmDashboard/DashboardHome/DashboardHome";
+import DashboardHome from "../Pages/EmDashboard/DashboardHome/DashboardHome";
+import HrProfile from "../Pages/Profile/HrProfile";
+import EmProfile from "../Pages/Profile/EmProfile";
+import AdminDashboardHome from "../Pages/HrDashboard/DashboardHome/AdminDashboardHome";
 
 const router = createBrowserRouter([
   {
@@ -40,11 +41,11 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "JoinAsEmployee",
+        path: "joinAsEmployee",
         element: <JoinAsEmployee />,
       },
       {
-        path: "JoinAsHRManager",
+        path: "joinAsHRManager",
         element: <JoinAsHRManager />,
       },
       {
@@ -59,6 +60,14 @@ const router = createBrowserRouter([
         path: "login",
         element: <Login />,
       },
+      {
+        path: "emProfile",
+        element: <EmProfile />,
+      },
+      {
+        path: "hrProfile",
+        element: <HrProfile />,
+      },
     ],
   },
   // HR dashboard
@@ -66,13 +75,19 @@ const router = createBrowserRouter([
     path: "hr-dashboard",
     element: (
       <Private>
-        <HrDashboardLayout />
+        <AdminRoute>
+          <HrDashboardLayout />
+        </AdminRoute>
       </Private>
     ),
     children: [
       {
         index: true,
-        element: <DashboardHome />,
+        element: (
+          <AdminDashboardHome>
+            <DashboardHome />
+          </AdminDashboardHome>
+        ),
       },
       {
         path: "add-asset",
@@ -102,7 +117,6 @@ const router = createBrowserRouter([
         path: "My-employee",
         element: (
           <AdminRoute>
-            {" "}
             <MyEmployeeList />
           </AdminRoute>
         ),
@@ -145,7 +159,11 @@ const router = createBrowserRouter([
   // employee dashboard
   {
     path: "em-dashboard",
-    element: <EmDashboardLayout />,
+    element: (
+      <Private>
+        <EmDashboardLayout />
+      </Private>
+    ),
     children: [
       {
         index: true,

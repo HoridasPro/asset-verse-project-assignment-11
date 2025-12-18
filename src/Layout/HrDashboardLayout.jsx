@@ -8,7 +8,7 @@ import useRole from "../hooks/useRole";
 import { FaUsers } from "react-icons/fa";
 import { GrUpgrade } from "react-icons/gr";
 import { FaUsersCog } from "react-icons/fa";
-import img from "../assets/react.svg";
+import imgLogo from "../assets/assetLogo.png";
 
 const HrDashboardLayout = () => {
   const { role } = useRole();
@@ -60,7 +60,7 @@ const HrDashboardLayout = () => {
               {/* List item */}
               <li>
                 <Link to="/">
-                  <img src={img} alt="" />
+                  <img src={imgLogo} alt="" />
                 </Link>
               </li>
               <li>

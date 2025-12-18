@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import useAxios from "../../hooks/useAxios";
 import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const SentRequestAsset = ({ orderModalRef, selectedAsset }) => {
   const axiosSecure = useAxios();
@@ -35,10 +36,16 @@ const SentRequestAsset = ({ orderModalRef, selectedAsset }) => {
     try {
       const res = await axiosSecure.post("/requestAssets", RequestAssetInfo);
 
+      setNote("");
+      orderModalRef.current.close();
       if (res.data.insertedId) {
-        alert("Request Sent Successfully!");
-        setNote(""); // clear textarea
-        orderModalRef.current.close();
+        await Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Request Sent Successfully!",
+          showConfirmButton: false,
+          timer: 3000,
+        });
       }
     } catch (error) {
       console.error("Error sending request:", error);

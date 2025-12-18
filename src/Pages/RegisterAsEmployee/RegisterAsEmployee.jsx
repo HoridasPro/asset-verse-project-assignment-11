@@ -30,13 +30,7 @@ const RegisterAsEmployee = ({ setUser }) => {
       });
       console.log("User profile updated successfully for the employee");
 
-      // 4️⃣ Prepare employee object for backend
-      // const employeeInfo = {
-      //   name: data.name,
-      //   email: data.email,
-      //   photo: photoURL,
-      //   role: "employee",
-      // };
+       
 
       const employeeInfo = {
         name: data.name,
@@ -62,49 +56,7 @@ const RegisterAsEmployee = ({ setUser }) => {
   };
 
   return (
-    // <div className="flex justify-center items-center min-h-screen bg-gray-100">
-    //   <form
-    //     onSubmit={handleSubmit(handleEmployeeRegister)}
-    //     className="bg-white p-8 rounded-lg shadow-md w-full max-w-md space-y-4"
-    //   >
-    //     <h2 className="text-2xl font-bold text-center">
-    //       Employee Registration
-    //     </h2>
-
-    //     <input
-    //       type="text"
-    //       placeholder="Employee Name"
-    //       className="input input-bordered w-full"
-    //       {...register("name", { required: true })}
-    //     />
-
-    //     <input
-    //       type="email"
-    //       placeholder="Email"
-    //       className="input input-bordered w-full"
-    //       {...register("email", { required: true })}
-    //     />
-
-    //     <input
-    //       type="password"
-    //       placeholder="Password"
-    //       className="input input-bordered w-full"
-    //       {...register("password", { required: true })}
-    //     />
-
-    //     <input
-    //       type="file"
-    //       accept="image/*"
-    //       className="file-input file-input-bordered w-full"
-    //       {...register("photo", { required: true })}
-    //     />
-
-    //     <button type="submit" className="btn btn-primary w-full">
-    //       Register As Employee
-    //     </button>
-    //   </form>
-    // </div>
-
+    
     <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg">
       <h2 className="text-2xl font-semibold mb-4">Register as Employee</h2>
 
