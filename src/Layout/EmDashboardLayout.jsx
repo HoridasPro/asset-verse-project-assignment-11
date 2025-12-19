@@ -101,10 +101,7 @@ const EmDashboardLayout = () => {
                     data-tip="Request-Asset"
                     to="/em-dashboard/request-asset"
                   >
-                    <IoGitPullRequest
-                      IoGitPullRequest
-                      className="text-xl"
-                    ></IoGitPullRequest>
+                    <IoGitPullRequest className="text-xl"></IoGitPullRequest>
                     <span className="is-drawer-close:hidden">
                       Request Assets
                     </span>

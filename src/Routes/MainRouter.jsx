@@ -68,6 +68,10 @@ const router = createBrowserRouter([
         path: "hrProfile",
         element: <HrProfile />,
       },
+      {
+        path: "/profileUpdate",
+        element: <ProfilePage></ProfilePage>,
+      },
     ],
   },
   // HR dashboard
