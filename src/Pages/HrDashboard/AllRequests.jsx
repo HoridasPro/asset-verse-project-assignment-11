@@ -1,14 +1,15 @@
+ 
+ 
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
 import { FaUserCheck } from "react-icons/fa";
-// import Swal from "sweetalert2";
 import { IoPersonRemove } from "react-icons/io5";
 import Swal from "sweetalert2";
 
 const AllRequests = () => {
-  // const {user}=useAuth()
   const axiosSecure = useAxios();
+
   const { data: allRequests = [], refetch } = useQuery({
     queryKey: ["allRequests", "pending"],
     queryFn: async () => {
@@ -16,18 +17,15 @@ const AllRequests = () => {
       return res.data;
     },
   });
-  console.log(allRequests);
 
   const updateAllRequestStatus = (id, status) => {
-    const updateInfo = { status: status };
-
-    axiosSecure.patch(`/requestAssets/${id}`, updateInfo).then((res) => {
+    axiosSecure.patch(`/requestAssets/${id}`, { status }).then((res) => {
       if (res.data.modifiedCount) {
         refetch();
         Swal.fire({
           position: "top-end",
           icon: "success",
-          title: `${status}`,
+          title: status,
           text: `Employee status has been ${status}`,
           showConfirmButton: false,
           timer: 1800,
@@ -36,197 +34,92 @@ const AllRequests = () => {
     });
   };
 
-  // Request approve
-  const handleAproval = (id) => {
-    updateAllRequestStatus(id, "approved");
-  };
-  // Request reject
-  const handleRejection = (id) => {
-    updateAllRequestStatus(id, "rejected");
-  };
-
   return (
-    <div className="overflow-x-auto">
-      <p className="text-2xl font-bold">
-        All Request Aeets : {allRequests.length}
+    <div className="py-6 px-3 sm:px-6 bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900 min-h-screen">
+      <p className="text-2xl sm:text-3xl font-extrabold mb-6 text-center bg-gradient-to-r from-cyan-400 via-indigo-400 to-pink-400 bg-clip-text text-transparent">
+        All Request Assets : {allRequests.length}
       </p>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>SI NO</th>
-            <th>Employee</th>
-            <th>Asset</th>
-            <th>Date</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {allRequests.map((allRequest, index) => (
-            <tr key={allRequest._id}>
-              <th>{index + 1}</th>
-              <td>
-                <div>{allRequest.employeeName}</div>
-              </td>
-              <td>
-                <div className="flex items-center gap-3">
-                  <div className="avatar">
-                    <div className="mask mask-squircle h-12 w-12">
-                      <img
-                        src={allRequest.productURL}
-                        alt="Avatar Tailwind CSS Component"
-                      />
+
+      {/* 🔹 Horizontal scroll for mobile */}
+      <div className="overflow-x-auto">
+        <table className="min-w-[900px] w-full text-white shadow-xl rounded-lg overflow-hidden bg-gradient-to-r from-white/20 via-white/10 to-white/20 backdrop-blur-md">
+          <thead className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+            <tr>
+              <th className="px-4 py-3 text-center">SI</th>
+              <th className="px-4 py-3 text-left">Employee</th>
+              <th className="px-4 py-3 text-center">Asset</th>
+              <th className="px-4 py-3 text-center">Date</th>
+              <th className="px-4 py-3 text-center">Status</th>
+              <th className="px-4 py-3 text-center">Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {allRequests.map((allRequest, index) => (
+              <tr
+                key={allRequest._id}
+                className="odd:bg-white/10 even:bg-white/20 hover:bg-gray-700 transition"
+              >
+                <td className="px-4 py-3 text-center">{index + 1}</td>
+
+                <td className="px-4 py-3 text-sm sm:text-base font-medium">
+                  {allRequest.employeeName}
+                </td>
+
+                <td className="px-4 py-3">
+                  <div className="flex justify-center">
+                    <div className="avatar">
+                      <div className="mask mask-squircle w-10 h-10 sm:w-12 sm:h-12">
+                        <img src={allRequest.productURL} alt="Asset" />
+                      </div>
                     </div>
                   </div>
-                </div>
-              </td>
-              <td>
-                <div>{allRequest.createdAt}</div>
-              </td>
-              <td>
-                <div>
-                  <p
-                    className={`${
+                </td>
+
+                <td className="px-4 py-3 text-center text-sm sm:text-base">
+                  {new Date(allRequest.createdAt).toLocaleDateString()}
+                </td>
+
+                <td className="px-4 py-3 text-center">
+                  <span
+                    className={`px-3 py-1 rounded-full text-xs sm:text-sm font-bold ${
                       allRequest.status === "approved"
-                        ? "text-green-500"
-                        : "text-red-400"
+                        ? "bg-gradient-to-r from-green-400 to-green-600"
+                        : "bg-gradient-to-r from-red-400 to-red-600"
                     }`}
                   >
                     {allRequest.status}
-                  </p>
-                </div>
-              </td>
+                  </span>
+                </td>
 
-              <td>
-                <button
-                  onClick={() => handleAproval(allRequest._id)}
-                  className="btn btn-square hover:bg-primary relative group rounded mr-2"
-                >
-                  <FaUserCheck />
-                  <span
-                    className="absolute hidden group-hover:block -top-8 left-1/2 -translate-x-1/2
-                       bg-black text-white text-xs px-2 py-1 rounded"
-                  >
-                    Approve
-                  </span>
-                </button>
-                <button
-                  onClick={() => handleRejection(allRequest._id)}
-                  className="btn btn-square hover:bg-primary relative group rounded"
-                >
-                  <IoPersonRemove />
-                  <span
-                    className="absolute hidden group-hover:block -top-8 left-1/2 -translate-x-1/2
-                       bg-black text-white text-xs px-2 py-1 rounded"
-                  >
-                    Reject
-                  </span>
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                <td className="px-4 py-3">
+                  <div className="flex flex-col sm:flex-row justify-center gap-2">
+                    <button
+                      onClick={() =>
+                        updateAllRequestStatus(allRequest._id, "approved")
+                      }
+                      className="btn btn-square bg-gradient-to-r from-green-400 to-green-600 hover:scale-110 transition-transform"
+                    >
+                      <FaUserCheck />
+                    </button>
+
+                    <button
+                      onClick={() =>
+                        updateAllRequestStatus(allRequest._id, "rejected")
+                      }
+                      className="btn btn-square bg-gradient-to-r from-red-400 to-red-600 hover:scale-110 transition-transform"
+                    >
+                      <IoPersonRemove />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
 
 export default AllRequests;
-
-// import React from "react";
-// import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-// import useAxios from "../../hooks/useAxios";
-// import useAuth from "../../hooks/useAuth";
-
-// const AllRequests = () => {
-// const axiosSecure = useAxios();
-// const { user } = useAuth();
-// const queryClient = useQueryClient();
-
-// // Fetch all requests
-// const { data: allRequests = [], isLoading } = useQuery({
-//   queryKey: ["allRequests", user?.email],
-//   queryFn: async () => {
-//     const res = await axiosSecure.get("/requestAssets");
-//     return res.data;
-//   },
-// });
-
-// // Approve Mutation
-// const approveMutation = useMutation({
-//   mutationFn: async (id) => axiosSecure.patch(`/requestAssets/${id}`),
-//   onSuccess: () => queryClient.invalidateQueries(["allRequests"]),
-// });
-
-// // Reject Mutation
-// const rejectMutation = useMutation({
-//   mutationFn: async (id) => axiosSecure.patch(`/requestAssets/${id}`),
-//   onSuccess: () => queryClient.invalidateQueries(["allRequests"]),
-// });
-
-// if (isLoading) return <p>Loading...</p>;
-
-//   return (
-//     <div className="overflow-x-auto p-6">
-//       <table className="table w-full border">
-//         <thead>
-//           <tr>
-//             <th>SI NO</th>
-//             <th>Employee</th>
-//             <th>Photo</th>
-//             <th>Asset</th>
-//             <th>Type</th>
-//             <th>Quantity</th>
-//             <th>Date</th>
-//             <th>Status</th>
-//             <th>Actions</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {allRequests.map((allRequest, index) => (
-//             <tr key={allRequest._id}>
-//               <th>{index + 1}</th>
-//               <td>{allRequest.productName}</td>
-//               <td>
-//                 <div className="avatar">
-//                   <div className="mask mask-squircle h-12 w-12">
-//                     <img
-//                       src={allRequest.employeePhoto}
-//                       alt={allRequest.employeeName}
-//                     />
-//                   </div>
-//                 </div>
-//               </td>
-//               <td>{allRequest.assetName}</td>
-//               <td>{allRequest.assetType}</td>
-//               <td>{allRequest.assetQuantity}</td>
-//               <td>{new Date(allRequest.createdAt).toLocaleDateString()}</td>
-//               <td>{allRequest.status}</td>
-//               <td className="space-x-2">
-//                 {allRequest.status === "Pending" && (
-//                   <>
-//                     <button
-//                       onClick={() => approveMutation.mutate(allRequest._id)}
-//                       className="btn btn-sm bg-green-500 text-white"
-//                     >
-//                       Approve
-//                     </button>
-//                     <button
-//                       onClick={() => rejectMutation.mutate(allRequest._id)}
-//                       className="btn btn-sm bg-red-500 text-white"
-//                     >
-//                       Reject
-//                     </button>
-//                   </>
-//                 )}
-//                 {allRequest.status !== "Pending" && <span>Done</span>}
-//               </td>
-//             </tr>
-//           ))}
-//         </tbody>
-//       </table>
-//     </div>
-//   );
-// };
-
-// export default AllRequests;

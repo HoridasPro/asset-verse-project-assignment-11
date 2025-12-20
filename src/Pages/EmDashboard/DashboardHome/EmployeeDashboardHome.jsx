@@ -1,11 +1,8 @@
-import React from 'react';
+import React from "react";
+import MyAssets from "../MyAssets";
 
 const EmployeeDashboardHome = () => {
-  return (
-    <div>
-      <h1>this is employee dashboard home</h1>
-    </div>
-  );
+  return <MyAssets></MyAssets>;
 };
 
 export default EmployeeDashboardHome;

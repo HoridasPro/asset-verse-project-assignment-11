@@ -164,20 +164,20 @@ const HrDashboardLayout = () => {
                       </span>
                     </NavLink>
                   </li>
+                  <li>
+                    <NavLink
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Payment History"
+                      to="/hr-dashboard/payment-history"
+                    >
+                      <MdOutlinePayment className="text-xl"></MdOutlinePayment>
+                      <span className="is-drawer-close:hidden">
+                        Payment History
+                      </span>
+                    </NavLink>
+                  </li>
                 </>
               )}
-              <li>
-                <NavLink
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="Payment History"
-                  to="/hr-dashboard/payment-history"
-                >
-                  <MdOutlinePayment className="text-xl"></MdOutlinePayment>
-                  <span className="is-drawer-close:hidden">
-                    Payment History
-                  </span>
-                </NavLink>
-              </li>
 
               {/* payment history */}
             </ul>

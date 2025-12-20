@@ -1,24 +1,18 @@
+// export default AddAsset;
 import React from "react";
 import { useForm } from "react-hook-form";
 import { photoUpload } from "../../Utils/UploadPhoto";
-// import useAuth from "../../hooks/useAuth";
 import useAxios from "../../hooks/useAxios";
 import Swal from "sweetalert2";
 
 const AddAsset = () => {
   const { register, handleSubmit } = useForm();
-  // const { userProfileUpdate } = useAuth();
   const axiosSecure = useAxios();
 
   const handleAddAsset = async (data) => {
     try {
       const imageFile = data.photo[0];
       const productURL = await photoUpload(imageFile);
-
-      // await userProfileUpdate({
-      //   // displayName: data.name,
-      //   // productURL: productURL,
-      // });
 
       const hrAssetInfo = {
         productType: data.productType,
@@ -28,7 +22,7 @@ const AddAsset = () => {
         role: "hr",
         createdAt: new Date(),
       };
-      // to post for the hr manager
+
       await axiosSecure.post("hrAssets", hrAssetInfo).then((res) => {
         if (res.data.insertedId) {
           Swal.fire({
@@ -40,81 +34,99 @@ const AddAsset = () => {
           });
         }
       });
-      console.log("after the post", hrAssetInfo);
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <div className="py-10 max-w-11/12 mx-auto">
-      <h2 className="text-5xl font-bold text-center">Add Asset</h2>
-      <p className="text-2xl font-medium py-3 border-b-2 text-center">
-        Enter your asset details
-      </p>
-      <form onSubmit={handleSubmit(handleAddAsset)} className="mt-12 ">
-        <div className="font-medium text-2xl py-2 flex justify-center">
-          {/* parcel type*/}
-          <label className="label mr-4">
-            <input
-              type="radio"
-              {...register("productType", { required: true })}
-              value="Returnable"
-              className="radio"
-              defaultChecked
-            />
-            Returnable
-          </label>
+    <div className="min-h-screen py-14 bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900">
+      <div className="max-w-5xl mx-auto px-4">
+        {/* Heading */}
+        <h2 className="text-5xl font-extrabold text-center bg-gradient-to-r from-cyan-400 via-indigo-400 to-pink-400 bg-clip-text text-transparent">
+          Add Asset
+        </h2>
+        <p className="text-lg text-gray-300 mt-3 border-b border-gray-600 pb-4 text-center">
+          Enter your asset details
+        </p>
 
-          {/* parcel type*/}
-          <label className="label mr-4">
-            <input
-              type="radio"
-              {...register("productType", { required: true })}
-              value="Non-returnable"
-              className="radio"
-              defaultChecked
-            />
-            Non-returnable
-          </label>
-        </div>
-        {/* parcel information: name, weight */}
-        <div className="w-[500px] mx-auto bg-amber-50 p-5">
-          <fieldset className="fieldset mb-5">
-            <label className="label text-xl">Product Name</label>
-            <input
-              type="text"
-              {...register("productName", { required: true })}
-              className="input w-full"
-              placeholder="product name"
-            />
-          </fieldset>
-          <fieldset className="fieldset">
-            <label className="label text-xl">Product Quantity</label>
-            <input
-              type="number"
-              {...register("productQuantity", { required: true })}
-              className="input w-full"
-              placeholder="productQuantity"
-            />
-          </fieldset>
-          <fieldset className="flex flex-col mt-5">
-            <label className="label text-xl">Product Image</label>
-            <input
-              type="file"
-              accept="image/*"
-              className="file-input file-input-bordered w-full"
-              {...register("photo", { required: true })}
-              placeholder="photo"
-            />
-          </fieldset>
-        </div>
-        <input
-          type="submit"
-          value="Saves to assets collection"
-          className="btn btn-primary mt-5 mx-auto flex text-white"
-        />
-      </form>
+        {/* Form */}
+        <form
+          onSubmit={handleSubmit(handleAddAsset)}
+          className="mt-12 bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl p-10"
+        >
+          {/* Product Type */}
+          <div className="flex justify-center gap-8 text-xl font-semibold text-white mb-8">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="radio"
+                {...register("productType", { required: true })}
+                value="Returnable"
+                className="radio radio-primary"
+                defaultChecked
+              />
+              Returnable
+            </label>
+
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="radio"
+                {...register("productType", { required: true })}
+                value="Non-returnable"
+                className="radio radio-primary"
+              />
+              Non-returnable
+            </label>
+          </div>
+
+          {/* ✅ Gradient Form Card */}
+          <div className="max-w-xl mx-auto bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 rounded-xl p-8 shadow-xl border border-indigo-200">
+            <fieldset className="mb-5">
+              <label className="block text-lg font-semibold mb-1 text-gray-800">
+                Product Name
+              </label>
+              <input
+                type="text"
+                {...register("productName", { required: true })}
+                className="input input-bordered w-full"
+                placeholder="Enter product name"
+              />
+            </fieldset>
+
+            <fieldset className="mb-5">
+              <label className="block text-lg font-semibold mb-1 text-gray-800">
+                Product Quantity
+              </label>
+              <input
+                type="number"
+                {...register("productQuantity", { required: true })}
+                className="input input-bordered w-full"
+                placeholder="Enter quantity"
+              />
+            </fieldset>
+
+            <fieldset>
+              <label className="block text-lg font-semibold mb-1 text-gray-800">
+                Product Image
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                className="file-input file-input-bordered w-full"
+                {...register("photo", { required: true })}
+              />
+            </fieldset>
+          </div>
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            className="mt-10 mx-auto flex px-10 py-3 rounded-full text-lg font-bold text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:scale-105 transition-transform shadow-lg cursor-pointer"
+          >
+            Save to Assets Collection
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

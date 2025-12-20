@@ -1,5 +1,3 @@
- 
-
 import React, { useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
@@ -25,11 +23,9 @@ const RequestAsset = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1380px] mx-auto py-10">
-      
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1380px] mx-auto py-10 ">
       {assets.map((asset) => (
         <div key={asset._id} className="card shadow-sm bg-gray-300">
-          
           <figure>
             <img
               src={asset.productURL}
@@ -60,7 +56,10 @@ const RequestAsset = () => {
       ))}
 
       {/* Modal */}
-      <dialog ref={orderModalRef} className="modal modal-bottom sm:modal-middle">
+      <dialog
+        ref={orderModalRef}
+        className="modal modal-bottom sm:modal-middle"
+      >
         <div className="modal-box bg-black text-white">
           <p className="py-4 font-bold text-2xl">Request Asset Page</p>
 
@@ -78,10 +77,8 @@ const RequestAsset = () => {
           </div>
         </div>
       </dialog>
-
     </div>
   );
 };
 
 export default RequestAsset;
-

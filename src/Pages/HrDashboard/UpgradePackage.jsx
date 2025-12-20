@@ -1,3 +1,5 @@
+ 
+
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
@@ -7,18 +9,15 @@ const UpgradePackage = () => {
   const { user } = useAuth();
   const axiosSecure = useAxios();
 
-  // GET only this user's packagess
+  // GET only this user's packages
   const { isLoading, data: packages = [] } = useQuery({
     queryKey: ["packages", user?.email],
     queryFn: async () => {
-      // const res = await axiosSecure.get(`/packages?email=${user?.email}`);
       const res = await axiosSecure.get(`/packages`);
       return res.data;
     },
     enabled: !!user?.email,
   });
-
-  console.log(packages);
 
   const handlePayment = async (pkg) => {
     try {
@@ -27,7 +26,7 @@ const UpgradePackage = () => {
         employeeLimit: pkg.employeeLimit,
         packageId: pkg._id,
         email: user?.email,
-        packageName: pkg.packageName, // ✅ FIXED
+        packageName: pkg.packageName,
       };
 
       const res = await axiosSecure.post(
@@ -46,48 +45,63 @@ const UpgradePackage = () => {
   };
 
   if (isLoading) {
-    return <span className="loading loading-bars loading-xl"></span>;
+    return (
+      <span className="loading loading-bars loading-xl mx-auto mt-24"></span>
+    );
   }
 
   return (
-    <div className="overflow-x-auto">
-      <table className="table w-full">
-        <thead>
-          <tr>
-            <th>SI NO</th>
-            <th>Name</th>
-            <th>Employee Limit</th>
-            <th>Price</th>
-            <th>Payment</th>
-            <th>Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          {packages.map((pkg, index) => (
-            <tr key={pkg._id}>
-              <th>{index + 1}</th>
-              <td>{pkg.packageName}</td>
-              <td>{pkg.employeeLimit}</td>
-              <td>${pkg.price}</td>
-              <td>
-                {pkg.paymentStatus === "paid" ? (
-                  <span className="text-green-500">Paid</span>
-                ) : (
-                  // <Link to={`/hr-dashboard/payment/${pkg._id}`}>
-                  <button
-                    onClick={() => handlePayment(pkg)}
-                    className="btn bg-green-300 btn-sm text-black font-bold"
-                  >
-                    Pay
-                  </button>
-                  // </Link>
-                )}
-              </td>
-              <td>{new Date(pkg.createdAt).toLocaleDateString()}</td>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900 p-6">
+      <h2 className="text-3xl font-extrabold text-center mb-6 bg-gradient-to-r from-cyan-400 via-indigo-400 to-pink-400 bg-clip-text text-transparent">
+        Upgrade Packages : {packages.length}
+      </h2>
+
+      <div className="overflow-x-auto">
+        <table className="table-fixed w-full text-white shadow-2xl rounded-lg overflow-hidden bg-gradient-to-r from-white/20 via-white/10 to-white/20 backdrop-blur-md">
+          <thead className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white">
+            <tr>
+              <th className="px-4 py-3 text-center w-1/12">SI NO</th>
+              <th className="px-4 py-3 text-left w-2/12">Name</th>
+              <th className="px-4 py-3 text-center w-2/12">Employee Limit</th>
+              <th className="px-4 py-3 text-center w-2/12">Price</th>
+              <th className="px-4 py-3 text-center w-2/12">Payment</th>
+              <th className="px-4 py-3 text-center w-3/12">Date</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {packages.map((pkg, index) => (
+              <tr
+                key={pkg._id}
+                className="odd:bg-white/10 even:bg-white/20 hover:scale-105 transform transition-all"
+              >
+                <th className="px-4 py-3 text-center">{index + 1}</th>
+                <td className="px-4 py-3 font-medium text-left">
+                  {pkg.packageName}
+                </td>
+                <td className="px-4 py-3 text-center">{pkg.employeeLimit}</td>
+                <td className="px-4 py-3 text-center">${pkg.price}</td>
+                <td className="px-4 py-3 text-center">
+                  {pkg.paymentStatus === "paid" ? (
+                    <span className="px-2 py-1 rounded-full text-white bg-gradient-to-r from-green-400 to-green-600 text-sm font-semibold">
+                      Paid
+                    </span>
+                  ) : (
+                    <button
+                      onClick={() => handlePayment(pkg)}
+                      className="btn bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-bold btn-sm hover:scale-105 transition-transform"
+                    >
+                      Pay
+                    </button>
+                  )}
+                </td>
+                <td className="px-4 py-3 text-center">
+                  {new Date(pkg.createdAt).toLocaleDateString()}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
