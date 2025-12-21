@@ -1,7 +1,6 @@
 import React from "react";
 import useRole from "../../../hooks/useRole";
 import Loading from "../../../Loading/Loading";
-// import AdminDashboardHome from "./AdminDashboardHome";
 import UserDashboardHome from "./UserDashboardHome";
 import AdminDashboardHome from "./AdminDashboardHome";
 

@@ -1,4 +1,4 @@
- import { useState } from "react";
+import { useState } from "react";
 import CompanySelect from "./CompanySelect";
 import EmployeeTable from "./EmployeeTable";
 import EmployeeDetails from "./EmployeeDetails";
@@ -11,13 +11,11 @@ const MyTeam = () => {
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">My Team</h1>
 
-      {/* Company dropdown */}
       <CompanySelect
         selectedCompany={selectedCompany}
         setSelectedCompany={setSelectedCompany}
       />
 
-      {/* Layout: left=table, right=details */}
       <div className="flex mt-6 gap-6">
         <div className="flex-1">
           <EmployeeTable
@@ -35,4 +33,3 @@ const MyTeam = () => {
 };
 
 export default MyTeam;
- 

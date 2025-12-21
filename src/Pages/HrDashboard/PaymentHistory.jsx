@@ -1,85 +1,15 @@
-// import React from "react";
-// import useAxios from "../../hooks/useAxios";
-// import { useQuery } from "@tanstack/react-query";
-// import useAuth from "../../hooks/useAuth";
-
-// const PaymentHistory = () => {
-//   const { user } = useAuth();
-//   const axiosSecure = useAxios();
-
-//   const { isLoading, data: payments = [] } = useQuery({
-//     queryKey: ["payments", user?.email],
-//     queryFn: async () => {
-//       const res = await axiosSecure.get(`/payments?email=${user.email}`);
-//       return res.data;
-//     },
-//   });
-
-//   if (isLoading) {
-//     return (
-//       <span className="loading loading-bars loading-xl mx-auto mt-24"></span>
-//     );
-//   }
-
-//   return (
-//     <div className="min-h-screen p-6 bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900">
-//       <h1 className="text-3xl font-extrabold mb-6 text-center bg-gradient-to-r from-cyan-400 via-indigo-400 to-pink-400 bg-clip-text text-transparent">
-//         Payment History ({payments.length})
-//       </h1>
-
-//       <div className="overflow-x-auto">
-//         <table className="table-fixed w-full text-white shadow-xl rounded-lg overflow-hidden bg-gradient-to-r from-white/20 via-white/10 to-white/20 backdrop-blur-md">
-//           <thead className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white">
-//             <tr>
-//               <th className="px-4 py-3 text-center w-1/12">SI NO</th>
-//               <th className="px-4 py-3 text-left w-2/12">Package Name</th>
-//               <th className="px-4 py-3 text-center w-1/12">Employee Limit</th>
-//               <th className="px-4 py-3 text-center w-1/12">Price</th>
-//               <th className="px-4 py-3 text-left w-2/12">Email</th>
-//               <th className="px-4 py-3 text-left w-2/12">Transaction Id</th>
-//               <th className="px-4 py-3 text-left w-2/12">Package Id</th>
-//               <th className="px-4 py-3 text-center w-2/12">Paid Date</th>
-//             </tr>
-//           </thead>
-//           <tbody>
-//             {payments.map((payment, index) => (
-//               <tr
-//                 key={payment._id}
-//                 className="odd:bg-white/10 even:bg-white/20 hover:bg-gray-600 text-white transition-all"
-//               >
-//                 <th className="px-4 py-3 text-center">{index + 1}</th>
-//                 <td className="px-4 py-3 font-medium">{payment.packageName}</td>
-//                 <td className="px-4 py-3 text-center">
-//                   {payment.employeeLimit}
-//                 </td>
-//                 <td className="px-4 py-3 text-center">${payment.amount}</td>
-//                 <td className="px-4 py-3">{payment.hrEmail}</td>
-//                 <td className="px-4 py-3">{payment.transactionId}</td>
-//                 <td className="px-4 py-3">{payment.packageId}</td>
-//                 <td className="px-4 py-3 text-center">
-//                   {new Date(payment.paidAt).toLocaleDateString()}
-//                 </td>
-//               </tr>
-//             ))}
-//           </tbody>
-//         </table>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default PaymentHistory;
-
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useAxios from "../../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
+import Loading from "../../Loading/Loading";
 
 const PaymentHistory = () => {
   const { user } = useAuth();
   const axiosSecure = useAxios();
+  const [loading, setLoading] = useState(true);
 
-  const { isLoading, data: payments = [] } = useQuery({
+  const { data: payments = [] } = useQuery({
     queryKey: ["payments", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/payments?email=${user.email}`);
@@ -87,12 +17,13 @@ const PaymentHistory = () => {
     },
   });
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center mt-24">
-        <span className="loading loading-bars loading-xl"></span>
-      </div>
-    );
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+  }, [setLoading]);
+  if (loading) {
+    return <Loading />;
   }
 
   return (
@@ -101,7 +32,7 @@ const PaymentHistory = () => {
         Payment History ({payments.length})
       </h1>
 
-      {/* 🔹 Mobile horizontal scroll */}
+      {/*Mobile horizontal scroll */}
       <div className="overflow-x-auto">
         <table className="min-w-[1100px] w-full text-white shadow-xl rounded-lg overflow-hidden bg-gradient-to-r from-white/20 via-white/10 to-white/20 backdrop-blur-md">
           <thead className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">

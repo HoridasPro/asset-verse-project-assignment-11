@@ -1,13 +1,14 @@
-// export default AddAsset;
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { photoUpload } from "../../Utils/UploadPhoto";
 import useAxios from "../../hooks/useAxios";
 import Swal from "sweetalert2";
+import Loading from "../../Loading/Loading";
 
 const AddAsset = () => {
   const { register, handleSubmit } = useForm();
   const axiosSecure = useAxios();
+  const [loading, setLoading] = useState(true);
 
   const handleAddAsset = async (data) => {
     try {
@@ -38,6 +39,14 @@ const AddAsset = () => {
       console.log(error);
     }
   };
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+  }, [setLoading]);
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="min-h-screen py-14 bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900">
@@ -79,7 +88,7 @@ const AddAsset = () => {
             </label>
           </div>
 
-          {/* ✅ Gradient Form Card */}
+          {/*Gradient Form Card */}
           <div className="max-w-xl mx-auto bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 rounded-xl p-8 shadow-xl border border-indigo-200">
             <fieldset className="mb-5">
               <label className="block text-lg font-semibold mb-1 text-gray-800">

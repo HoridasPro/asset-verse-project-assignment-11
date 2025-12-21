@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useAxios from "../../hooks/useAxios";
 import { FiShieldOff } from "react-icons/fi";
 import { FaUserShield } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
+import Loading from "../../Loading/Loading";
 
 const UserManagement = () => {
   const axiosSecure = useAxios();
+  const [loading, setLoading] = useState(true);
   const { data: hrUsers = [], refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
@@ -30,6 +32,14 @@ const UserManagement = () => {
       }
     });
   };
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+  }, [setLoading]);
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900 py-8 px-4">

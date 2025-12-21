@@ -6,6 +6,7 @@ import useRole from "../hooks/useRole";
 import { AiFillProfile } from "react-icons/ai";
 import { IoGitPullRequest } from "react-icons/io5";
 import img from "../assets/assetLogo.png";
+import Navbar from "../Components/Navbar";
 
 const EmDashboardLayout = () => {
   const { role } = useRole();
@@ -13,6 +14,7 @@ const EmDashboardLayout = () => {
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
+        <Navbar></Navbar>
         {/* Navbar */}
         <nav className="navbar w-full bg-base-300">
           <label
@@ -38,6 +40,7 @@ const EmDashboardLayout = () => {
           </label>
           <div className="px-4 text-2xl font-bold">Employee Dashboard</div>
         </nav>
+
         {/* Page content here */}
         <Outlet></Outlet>
       </div>

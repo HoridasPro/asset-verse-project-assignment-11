@@ -9,6 +9,7 @@ import { FaUsers } from "react-icons/fa";
 import { GrUpgrade } from "react-icons/gr";
 import { FaUsersCog } from "react-icons/fa";
 import imgLogo from "../assets/assetLogo.png";
+import Navbar from "../Components/Navbar";
 
 const HrDashboardLayout = () => {
   const { role } = useRole();
@@ -18,6 +19,7 @@ const HrDashboardLayout = () => {
       <div className="drawer lg:drawer-open">
         <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content">
+          <Navbar></Navbar>
           {/* Navbar */}
           <nav className="navbar w-full bg-base-300">
             <label
@@ -44,6 +46,7 @@ const HrDashboardLayout = () => {
             </label>
             <div className="px-4 text-2xl font-bold">HR Manager Dashboard</div>
           </nav>
+
           {/* Page content here */}
           <Outlet></Outlet>
         </div>
@@ -115,7 +118,6 @@ const HrDashboardLayout = () => {
                   </li>
 
                   {/* add list */}
-
                   <li>
                     <NavLink
                       className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
@@ -132,7 +134,7 @@ const HrDashboardLayout = () => {
                     <NavLink
                       className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                       data-tip="My-Employees"
-                      to="/hr-dashboard/My-employee"
+                      to="/hr-dashboard/my-employee"
                     >
                       <FaUsers className="text-xl"></FaUsers>
                       <span className="is-drawer-close:hidden">
@@ -178,8 +180,6 @@ const HrDashboardLayout = () => {
                   </li>
                 </>
               )}
-
-              {/* payment history */}
             </ul>
           </div>
         </div>

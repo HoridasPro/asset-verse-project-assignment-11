@@ -29,6 +29,9 @@ import DashboardHome from "../Pages/EmDashboard/DashboardHome/DashboardHome";
 import HrProfile from "../Pages/Profile/HrProfile";
 import EmProfile from "../Pages/Profile/EmProfile";
 import AdminDashboardHome from "../Pages/HrDashboard/DashboardHome/AdminDashboardHome";
+import EmployeeDashboardHome from "../Pages/EmDashboard/DashboardHome/EmployeeDashboardHome";
+import Navbar from "../Components/Navbar";
+import DownloadAssignedList from "../Components/DownloadAssignedList/DownloadAssignedList";
 
 const router = createBrowserRouter([
   {
@@ -118,7 +121,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "My-employee",
+        path: "my-employee",
         element: (
           <AdminRoute>
             <MyEmployeeList />
@@ -171,7 +174,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <DashboardHome />,
+        element: (
+          <EmployeeDashboardHome>
+            <DashboardHome></DashboardHome>
+          </EmployeeDashboardHome>
+        ),
       },
       {
         path: "my-assets",
@@ -188,6 +195,10 @@ const router = createBrowserRouter([
       {
         path: "profile-page",
         element: <ProfilePage />,
+      },
+      {
+        path: "downloadAssignedList",
+        element: <DownloadAssignedList />,
       },
     ],
   },

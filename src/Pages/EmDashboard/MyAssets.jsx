@@ -1,11 +1,14 @@
- import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useAxios from "../../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
+import DownloadAssignedList from "../../Components/DownloadAssignedList/DownloadAssignedList";
+import Loading from "../../Loading/Loading";
 
 const MyAssets = () => {
   const axiosSecure = useAxios();
   const [searchText, setSearchText] = useState("");
+  const [loading, setLoading] = useState(true);
 
   // Filter Type
   const [filterType, setFilterType] = useState("All");
@@ -42,20 +45,26 @@ const MyAssets = () => {
         );
 
         if (res.data.modifiedCount > 0 || res.data.success) {
-          refetch(); // update UI
+          refetch();
           Swal.fire("Returned!", "Your asset has been returned.", "success");
         }
       }
     });
   };
-
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+  }, [setLoading]);
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <div className="min-h-screen p-6 bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900">
       <h2 className="text-3xl font-extrabold mb-6 text-center bg-gradient-to-r from-cyan-400 via-indigo-400 to-pink-400 bg-clip-text text-transparent">
         My Assigned Assets : {employeeAssets.length}
       </h2>
 
-      {/* 🔍 Search + Filter Box */}
       <div className="flex items-center gap-2 mb-6 mx-auto w-[340px]">
         <div className="flex items-center gap-2 border border-gray-300 rounded-full px-3 py-2 flex-1 bg-white/20 backdrop-blur-md shadow-sm">
           <svg
@@ -168,6 +177,12 @@ const MyAssets = () => {
           </tbody>
         </table>
       </div>
+
+      {employeeAssets.length === 0 ? (
+        ""
+      ) : (
+        <DownloadAssignedList></DownloadAssignedList>
+      )}
     </div>
   );
 };

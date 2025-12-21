@@ -10,7 +10,6 @@ const Footer = () => {
   return (
     <footer className="bg-gradient-to-r from-indigo-700 via-purple-700 to-pink-600 text-white py-16">
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-10">
-        {/* Company Info */}
         <div>
           <h3 className="text-2xl font-bold mb-4">AssetVerse</h3>
           <p className="text-gray-200">
@@ -18,8 +17,6 @@ const Footer = () => {
             operations and track requests efficiently.
           </p>
         </div>
-
-        {/* Quick Links */}
         <div>
           <h4 className="text-xl font-semibold mb-4">Quick Links</h4>
           <ul className="space-y-2">
@@ -50,8 +47,6 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-
-        {/* Contact Info */}
         <div>
           <h4 className="text-xl font-semibold mb-4">Contact</h4>
           <p>
@@ -81,8 +76,6 @@ const Footer = () => {
             </a>
           </div>
         </div>
-
-        {/* Newsletter or Info */}
         <div>
           <h4 className="text-xl font-semibold mb-4">Newsletter</h4>
           <p className="text-gray-200 mb-4">

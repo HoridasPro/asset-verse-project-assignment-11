@@ -14,7 +14,7 @@ const DashboardHome = () => {
 
   return (
     <div>
-      <h1>this dasdboard home</h1>
+      <h1>this employee dasdboard home</h1>
     </div>
   );
 };

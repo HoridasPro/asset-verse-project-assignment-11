@@ -1,16 +1,15 @@
- 
-
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
 import useAuth from "../../hooks/useAuth";
+import Loading from "../../Loading/Loading";
 
 const UpgradePackage = () => {
   const { user } = useAuth();
   const axiosSecure = useAxios();
+  const [loading, setLoading] = useState(true);
 
-  // GET only this user's packages
-  const { isLoading, data: packages = [] } = useQuery({
+  const { data: packages = [] } = useQuery({
     queryKey: ["packages", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/packages`);
@@ -44,10 +43,13 @@ const UpgradePackage = () => {
     }
   };
 
-  if (isLoading) {
-    return (
-      <span className="loading loading-bars loading-xl mx-auto mt-24"></span>
-    );
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+  }, [setLoading]);
+  if (loading) {
+    return <Loading />;
   }
 
   return (

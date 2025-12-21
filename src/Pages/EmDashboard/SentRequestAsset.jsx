@@ -16,10 +16,9 @@ const SentRequestAsset = ({ orderModalRef, selectedAsset }) => {
       return;
     }
 
-    // Ensure productURL has extension
     let productURL = selectedAsset.productURL || "";
     if (!productURL.includes(".")) {
-      productURL += ".jpg"; // default to jpg if extension missing
+      productURL += ".jpg";
     }
 
     const RequestAssetInfo = {
@@ -27,7 +26,7 @@ const SentRequestAsset = ({ orderModalRef, selectedAsset }) => {
       productType: selectedAsset.productType,
       productName: selectedAsset.productName,
       productQuantity: selectedAsset.productQuantity,
-      productURL: productURL, // full URL with extension
+      productURL: productURL,
       note: note,
       status: "pending",
       createdAt: new Date(),

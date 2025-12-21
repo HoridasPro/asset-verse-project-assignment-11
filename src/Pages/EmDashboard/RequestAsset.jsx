@@ -1,11 +1,13 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
 import SentRequestAsset from "./SentRequestAsset";
+import Loading from "../../Loading/Loading";
 
 const RequestAsset = () => {
   const axiosSecure = useAxios();
   const orderModalRef = useRef(null);
+  const [loading, setLoading] = useState(true);
 
   const [selectedAsset, setSelectedAsset] = useState(null);
 
@@ -18,9 +20,17 @@ const RequestAsset = () => {
   });
 
   const handleRequestAssetModal = (asset) => {
-    setSelectedAsset(asset); // <-- Save clicked asset
+    setSelectedAsset(asset);
     orderModalRef.current.showModal();
   };
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+  }, []);
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1380px] mx-auto py-10 ">

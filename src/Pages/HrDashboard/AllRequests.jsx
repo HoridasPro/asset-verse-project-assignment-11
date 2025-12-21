@@ -1,14 +1,14 @@
- 
- 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
 import { FaUserCheck } from "react-icons/fa";
 import { IoPersonRemove } from "react-icons/io5";
 import Swal from "sweetalert2";
+import Loading from "../../Loading/Loading";
 
 const AllRequests = () => {
   const axiosSecure = useAxios();
+  const [loading, setLoading] = useState(true);
 
   const { data: allRequests = [], refetch } = useQuery({
     queryKey: ["allRequests", "pending"],
@@ -33,6 +33,14 @@ const AllRequests = () => {
       }
     });
   };
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+  }, [setLoading]);
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="py-6 px-3 sm:px-6 bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900 min-h-screen">
@@ -40,7 +48,7 @@ const AllRequests = () => {
         All Request Assets : {allRequests.length}
       </p>
 
-      {/* 🔹 Horizontal scroll for mobile */}
+      {/* Horizontal scroll for mobile */}
       <div className="overflow-x-auto">
         <table className="min-w-[900px] w-full text-white shadow-xl rounded-lg overflow-hidden bg-gradient-to-r from-white/20 via-white/10 to-white/20 backdrop-blur-md">
           <thead className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">

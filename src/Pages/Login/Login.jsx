@@ -10,7 +10,6 @@ const Login = () => {
   const { userLogin } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
-  // console.log(location, navigate);
 
   const handleLogin = async (data) => {
     try {
@@ -38,7 +37,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-800 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-800 px-4 py-10">
       <div className="w-full max-w-md">
         {/* Heading */}
         <h2 className="text-5xl font-extrabold text-center bg-gradient-to-r from-cyan-400 via-indigo-400 to-pink-400 bg-clip-text text-transparent">
@@ -90,9 +89,15 @@ const Login = () => {
             Secure login powered by Firebase
           </p>
           <p className="text-white">
-            If you don't account please register?{" "}
-            <Link to="/registerAsHRManager" className="font-bold text-blue-500">
-              Register
+            If you don't an account please register?
+            <Link to="/registerAsHRManager" className="font-bold text-blue-500 ml-2">
+              HrRegister
+            </Link>
+          </p>
+          <p className="text-white">
+            If you don't an account please register?
+            <Link to="/registerAsEmployee" className="font-bold text-blue-500 ml-2">
+              EmRegister
             </Link>
           </p>
         </form>

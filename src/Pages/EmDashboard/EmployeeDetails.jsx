@@ -1,4 +1,4 @@
- const EmployeeDetails = ({ selectedEmployee }) => {
+const EmployeeDetails = ({ selectedEmployee }) => {
   if (!selectedEmployee) {
     return (
       <p className="text-gray-500">

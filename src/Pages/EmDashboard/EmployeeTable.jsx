@@ -6,7 +6,6 @@ const EmployeeTable = ({ selectedCompany, setSelectedEmployee }) => {
 
   const { data: employees = [] } = useQuery({
     queryKey: ["employees"],
-    // enabled: !!selectedEmail, // শুধু তখনই fetch হবে যখন email থাকে
     queryFn: async () => {
       const res = await axiosSecure.get(`/employees`);
       return res.data;

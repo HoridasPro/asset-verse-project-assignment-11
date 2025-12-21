@@ -1,12 +1,9 @@
- 
-
-// export default AssetList;
-
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
 import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
+import Loading from "../../Loading/Loading";
 
 const AssetList = () => {
   const axiosSecure = useAxios();
@@ -21,8 +18,9 @@ const AssetList = () => {
   const [editProductType, setEditProductType] = useState("");
   const [editProductQuantity, setEditProductQuantity] = useState(0);
   const [editCreatedAt, setEditCreatedAt] = useState("");
+  const [loading, setLoading] = useState(true);
 
-  const { isLoading, data, refetch, isFetching } = useQuery({
+  const { data, refetch, isFetching } = useQuery({
     queryKey: ["assets", page],
     queryFn: async () => {
       const res = await axiosSecure.get(
@@ -32,12 +30,7 @@ const AssetList = () => {
     },
     keepPreviousData: true,
   });
-
-  if (isLoading)
-    return (
-      <span className="loading loading-bars loading-xl mx-auto flex mt-72"></span>
-    );
-
+ 
   const assets = data?.data || [];
 
   // Delete handler
@@ -108,6 +101,14 @@ const AssetList = () => {
     refetch();
     Swal.fire("Updated!", "Asset has been updated.", "success");
   };
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+  }, [setLoading]);
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="overflow-x-auto mb-10 mt-5 bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800 p-6 rounded-2xl shadow-2xl">

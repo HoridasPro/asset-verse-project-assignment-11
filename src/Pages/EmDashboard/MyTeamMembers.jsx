@@ -31,12 +31,12 @@
 //   return (
 //     <div className="p-6">
 //       <h2 className="text-2xl font-bold">My Team Members</h2>
- 
+
 //       <CompanySelect
 //         // companies={companies}
 //         // selectedCompany={selectedCompany}
 //         // setSelectedCompany={setSelectedCompany}
-//       /> 
+//       />
 
 //       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
 //         {employees.map((emp) => (
