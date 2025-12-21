@@ -53,12 +53,10 @@ const Navbar = () => {
               alt="Company Logo"
               className="w-10 h-10 rounded-full border"
             />
-            <span className="font-semibold text-lg">AssetVerse</span>
           </div>
         ) : (
           <div className="flex items-center gap-2">
             <img src={imgLogo} className="w-8 h-8" alt="AssetVerse" />
-            <span className="font-semibold text-lg">AssetVerse</span>
           </div>
         )}
       </div>

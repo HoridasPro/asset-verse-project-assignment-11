@@ -102,7 +102,7 @@ const DownloadAssignedList = () => {
     <div className="text-center mt-10 mb-10">
       <button
         onClick={handleDownloadPDF}
-        className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 font-bold rounded-md cursor-pointer"
+        className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 font-bold rounded-md cursor-pointer"
       >
         Download Report
       </button>
