@@ -87,13 +87,12 @@ const RegisterAsEmployee = ({ setUser }) => {
           <div>
             <label className="text-white font-semibold">Full Name</label>
             <input
-              {...register("name", { required: "Full Name is required" })}
+              {...register("name", { required: true })}
               type="text"
               className="input input-bordered w-full bg-white/90"
-              required
             />
-            {errors.name && (
-              <p className="text-red-400 text-sm">{errors.name.message}</p>
+            {errors.name?.type === "required" && (
+              <p className="text-red-500 font-bold">Name is required</p>
             )}
           </div>
 
@@ -102,12 +101,11 @@ const RegisterAsEmployee = ({ setUser }) => {
             <input
               type="file"
               accept="image/*"
-              {...register("photo", { required: "Photo is required" })}
+              {...register("photo", { required: true })}
               className="file-input file-input-bordered w-full bg-white/90"
-              required
             />
-            {errors.photo && (
-              <p className="text-red-400 text-sm">{errors.photo.message}</p>
+            {errors.photo?.type === "required" && (
+              <p className="text-red-500 font-bold">Photo is required</p>
             )}
           </div>
 
@@ -115,12 +113,11 @@ const RegisterAsEmployee = ({ setUser }) => {
             <label className="text-white font-semibold">Email</label>
             <input
               type="email"
-              {...register("email", { required: "Email is required" })}
+              {...register("email", { required: true })}
               className="input input-bordered w-full bg-white/90"
-              required
             />
-            {errors.email && (
-              <p className="text-red-400 text-sm">{errors.email.message}</p>
+            {errors.email?.type === "required" && (
+              <p className="text-red-500 font-bold">Email is required</p>
             )}
           </div>
 
@@ -129,14 +126,26 @@ const RegisterAsEmployee = ({ setUser }) => {
             <input
               type="password"
               {...register("password", {
-                required: "Password required",
-                minLength: { value: 6, message: "Min 6 chars" },
+                required: true,
+                minLength: 6,
+                pattern:
+                  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).+$/,
               })}
               className="input input-bordered w-full bg-white/90"
-              required
             />
-            {errors.password && (
-              <p className="text-red-400 text-sm">{errors.password.message}</p>
+            {errors.password?.type === "required" && (
+              <p className="text-red-500 font-bold">password is required</p>
+            )}
+            {errors.password?.type === "minLength" && (
+              <p className="text-red-500 font-bold">
+                Password must be 6 cheracters
+              </p>
+            )}
+            {errors.password?.type === "pattern" && (
+              <p className="text-red-500 font-bold">
+                Password bust be includes at least one charecter, at least one
+                number and at least one speacial character
+              </p>
             )}
           </div>
 
@@ -145,15 +154,12 @@ const RegisterAsEmployee = ({ setUser }) => {
             <input
               type="date"
               {...register("dateOfBirth", {
-                required: "Date of Birth is required",
+                required: true,
               })}
               className="input input-bordered w-full bg-white/90"
-              required
             />
-            {errors.dateOfBirth && (
-              <p className="text-red-400 text-sm">
-                {errors.dateOfBirth.message}
-              </p>
+            {errors.dateOfBirth?.type === "required" && (
+              <p className="text-red-500 font-bold">DateOfBirth is required</p>
             )}
           </div>
 

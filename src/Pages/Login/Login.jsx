@@ -6,7 +6,11 @@ import "sweetalert2/dist/sweetalert2.min.css";
 import { Link, useLocation, useNavigate } from "react-router";
 
 const Login = () => {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const { userLogin } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
@@ -60,8 +64,10 @@ const Login = () => {
               placeholder="Enter your email"
               className="input input-bordered w-full bg-white/90"
               {...register("email", { required: true })}
-              required
             />
+            {errors.email?.type === "required" && (
+              <p className="text-red-500 font-bold">Email is required</p>
+            )}
           </div>
 
           {/* Password */}
@@ -73,9 +79,27 @@ const Login = () => {
               type="password"
               placeholder="Enter your password"
               className="input input-bordered w-full bg-white/90"
-              {...register("password", { required: true })}
-              required
+              {...register("password", {
+                required: true,
+                minLength: 6,
+                pattern:
+                  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).+$/,
+              })}
             />
+            {errors.password?.type === "required" && (
+              <p className="text-red-500 font-bold">password is required</p>
+            )}
+            {errors.password?.type === "minLength" && (
+              <p className="text-red-500 font-bold">
+                Password must be 6 cheracters
+              </p>
+            )}
+            {errors.password?.type === "pattern" && (
+              <p className="text-red-500 font-bold">
+                Password bust be includes at least one charecter, at least one
+                number and at least one speacial character
+              </p>
+            )}
           </div>
 
           <button

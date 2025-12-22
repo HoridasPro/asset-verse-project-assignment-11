@@ -88,10 +88,10 @@ const RegisterAsHRManager = ({ setUser }) => {
             <label className="text-white font-semibold">Full Name</label>
             <input
               {...register("name", { required: true })}
-              className="input input-bordered w-full bg-white/90" required
+              className="input input-bordered w-full bg-white/90"
             />
-            {errors.name && (
-              <p className="text-red-400 text-sm">Name is required</p>
+            {errors.name?.type === "required" && (
+              <p className="text-red-500 font-bold"> Name is required</p>
             )}
           </div>
 
@@ -100,8 +100,10 @@ const RegisterAsHRManager = ({ setUser }) => {
             <input
               {...register("companyName", { required: true })}
               className="input input-bordered w-full bg-white/90"
-              required
             />
+            {errors.companyName?.type === "required" && (
+              <p className="text-red-500 font-bold">companyName is required</p>
+            )}
           </div>
 
           <div>
@@ -111,8 +113,10 @@ const RegisterAsHRManager = ({ setUser }) => {
               accept="image/*"
               {...register("photo", { required: true })}
               className="file-input file-input-bordered w-full bg-white/90"
-              required
             />
+            {errors.photo?.type === "required" && (
+              <p className="text-red-500 font-bold">Photo is required</p>
+            )}
           </div>
 
           <div>
@@ -121,18 +125,38 @@ const RegisterAsHRManager = ({ setUser }) => {
               type="email"
               {...register("email", { required: true })}
               className="input input-bordered w-full bg-white/90"
-              required
             />
+            {errors.email?.type === "required" && (
+              <p className="text-red-500 font-bold">Email is required</p>
+            )}
           </div>
 
           <div>
             <label className="text-white font-semibold">Password</label>
             <input
               type="password"
-              {...register("password", { required: true, minLength: 6 })}
+              {...register("password", {
+                required: true,
+                minLength: 6,
+                pattern:
+                  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).+$/,
+              })}
               className="input input-bordered w-full bg-white/90"
-              required
             />
+            {errors.password?.type === "required" && (
+              <p className="text-red-500 font-bold">password is required</p>
+            )}
+            {errors.password?.type === "minLength" && (
+              <p className="text-red-500 font-bold">
+                Password must be 6 cheracters
+              </p>
+            )}
+            {errors.password?.type === "pattern" && (
+              <p className="text-red-500 font-bold">
+                Password bust be includes at least one charecter, at least one
+                number and at least one speacial character
+              </p>
+            )}
           </div>
 
           <div>
@@ -141,8 +165,10 @@ const RegisterAsHRManager = ({ setUser }) => {
               type="date"
               {...register("dateOfBirth", { required: true })}
               className="input input-bordered w-full bg-white/90"
-              required
             />
+            {errors.dateOfBirth?.type === "required" && (
+              <p className="text-red-500 font-bold">DateOfBirth is required</p>
+            )}
           </div>
 
           <button
