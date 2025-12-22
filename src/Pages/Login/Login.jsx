@@ -82,23 +82,10 @@ const Login = () => {
               {...register("password", {
                 required: true,
                 minLength: 6,
-                pattern:
-                  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).+$/,
               })}
             />
-            {errors.password?.type === "required" && (
-              <p className="text-red-500 font-bold">password is required</p>
-            )}
-            {errors.password?.type === "minLength" && (
-              <p className="text-red-500 font-bold">
-                Password must be 6 cheracters
-              </p>
-            )}
-            {errors.password?.type === "pattern" && (
-              <p className="text-red-500 font-bold">
-                Password bust be includes at least one charecter, at least one
-                number and at least one speacial character
-              </p>
+              {errors.password?.type === "required" && (
+              <p className="text-red-500 font-bold">Password is required</p>
             )}
           </div>
 
