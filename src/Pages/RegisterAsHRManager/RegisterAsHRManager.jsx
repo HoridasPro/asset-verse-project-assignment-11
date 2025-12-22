@@ -88,7 +88,7 @@ const RegisterAsHRManager = ({ setUser }) => {
             <label className="text-white font-semibold">Full Name</label>
             <input
               {...register("name", { required: true })}
-              className="input input-bordered w-full bg-white/90"
+              className="input input-bordered w-full bg-white/90" required
             />
             {errors.name && (
               <p className="text-red-400 text-sm">Name is required</p>
@@ -100,6 +100,7 @@ const RegisterAsHRManager = ({ setUser }) => {
             <input
               {...register("companyName", { required: true })}
               className="input input-bordered w-full bg-white/90"
+              required
             />
           </div>
 
@@ -110,6 +111,7 @@ const RegisterAsHRManager = ({ setUser }) => {
               accept="image/*"
               {...register("photo", { required: true })}
               className="file-input file-input-bordered w-full bg-white/90"
+              required
             />
           </div>
 
@@ -119,6 +121,7 @@ const RegisterAsHRManager = ({ setUser }) => {
               type="email"
               {...register("email", { required: true })}
               className="input input-bordered w-full bg-white/90"
+              required
             />
           </div>
 
@@ -128,6 +131,7 @@ const RegisterAsHRManager = ({ setUser }) => {
               type="password"
               {...register("password", { required: true, minLength: 6 })}
               className="input input-bordered w-full bg-white/90"
+              required
             />
           </div>
 
@@ -137,6 +141,7 @@ const RegisterAsHRManager = ({ setUser }) => {
               type="date"
               {...register("dateOfBirth", { required: true })}
               className="input input-bordered w-full bg-white/90"
+              required
             />
           </div>
 

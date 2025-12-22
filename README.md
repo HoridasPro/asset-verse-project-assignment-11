@@ -8,7 +8,7 @@ This project is designed to manage assets for a company. Employees can view and 
 assets, while HR/admin can manage employees, assets and generate reports. It helps in tracking, returning and documenting company assets efficiently.
 
 ## Live URL
-https://stupendous-gumption-565b2dsmsagor123.netlify.app/
+https://stupendous-gumption-565b2dsmsagor123.netlify.app
 
 ## Key Features
 

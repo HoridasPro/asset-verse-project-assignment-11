@@ -60,6 +60,7 @@ const Login = () => {
               placeholder="Enter your email"
               className="input input-bordered w-full bg-white/90"
               {...register("email", { required: true })}
+              required
             />
           </div>
 
@@ -73,6 +74,7 @@ const Login = () => {
               placeholder="Enter your password"
               className="input input-bordered w-full bg-white/90"
               {...register("password", { required: true })}
+              required
             />
           </div>
 
@@ -90,13 +92,19 @@ const Login = () => {
           </p>
           <p className="text-white">
             If you don't an account please register?
-            <Link to="/registerAsHRManager" className="font-bold text-blue-500 ml-2">
+            <Link
+              to="/registerAsHRManager"
+              className="font-bold text-blue-500 ml-2"
+            >
               HrRegister
             </Link>
           </p>
           <p className="text-white">
             If you don't an account please register?
-            <Link to="/registerAsEmployee" className="font-bold text-blue-500 ml-2">
+            <Link
+              to="/registerAsEmployee"
+              className="font-bold text-blue-500 ml-2"
+            >
               EmRegister
             </Link>
           </p>

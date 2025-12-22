@@ -90,6 +90,7 @@ const RegisterAsEmployee = ({ setUser }) => {
               {...register("name", { required: "Full Name is required" })}
               type="text"
               className="input input-bordered w-full bg-white/90"
+              required
             />
             {errors.name && (
               <p className="text-red-400 text-sm">{errors.name.message}</p>
@@ -103,6 +104,7 @@ const RegisterAsEmployee = ({ setUser }) => {
               accept="image/*"
               {...register("photo", { required: "Photo is required" })}
               className="file-input file-input-bordered w-full bg-white/90"
+              required
             />
             {errors.photo && (
               <p className="text-red-400 text-sm">{errors.photo.message}</p>
@@ -115,6 +117,7 @@ const RegisterAsEmployee = ({ setUser }) => {
               type="email"
               {...register("email", { required: "Email is required" })}
               className="input input-bordered w-full bg-white/90"
+              required
             />
             {errors.email && (
               <p className="text-red-400 text-sm">{errors.email.message}</p>
@@ -130,6 +133,7 @@ const RegisterAsEmployee = ({ setUser }) => {
                 minLength: { value: 6, message: "Min 6 chars" },
               })}
               className="input input-bordered w-full bg-white/90"
+              required
             />
             {errors.password && (
               <p className="text-red-400 text-sm">{errors.password.message}</p>
@@ -144,6 +148,7 @@ const RegisterAsEmployee = ({ setUser }) => {
                 required: "Date of Birth is required",
               })}
               className="input input-bordered w-full bg-white/90"
+              required
             />
             {errors.dateOfBirth && (
               <p className="text-red-400 text-sm">
