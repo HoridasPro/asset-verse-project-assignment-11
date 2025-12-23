@@ -6,7 +6,7 @@ import { useNavigate } from "react-router";
 const axiosSecure = axios.create({
   baseURL: "https://assetverse-server-site-topaz.vercel.app",
 });
-
+//  load use axios
 const useAxios = () => {
   const { user, logOutUser } = useAuth();
   const navigate = useNavigate();
