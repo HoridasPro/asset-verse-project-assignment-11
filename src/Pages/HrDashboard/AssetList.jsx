@@ -20,7 +20,7 @@ const AssetList = () => {
   const [editCreatedAt, setEditCreatedAt] = useState("");
   const [loading, setLoading] = useState(true);
 
-  const { data, refetch, isFetching } = useQuery({
+  const { data=[], refetch, isFetching } = useQuery({
     queryKey: ["assets", page],
     queryFn: async () => {
       const res = await axiosSecure.get(
@@ -114,7 +114,7 @@ const AssetList = () => {
     <div className="overflow-x-auto mb-10 mt-5 bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800 p-6 rounded-2xl shadow-2xl">
       <h1 className="text-center font-extrabold text-2xl mb-6 bg-gradient-to-r from-cyan-400 via-indigo-400 to-pink-400 bg-clip-text text-transparent">
         Assets List {(page - 1) * limit + 1} -{" "}
-        {Math.min(page * limit, data.total)} of {data.total}
+        {Math.min(page * limit, data?.total)} of {data?.total}
       </h1>
 
       {/* Table */}
@@ -142,13 +142,13 @@ const AssetList = () => {
               <td>
                 <div className="avatar">
                   <div className="mask mask-squircle h-12 w-12">
-                    <img src={asset.productURL} alt={asset.productName} />
+                    <img src={asset.productURL} alt={asset?.productName} />
                   </div>
                 </div>
               </td>
 
               <td className="font-semibold text-cyan-400">
-                {asset.productName}
+                {asset?.productName}
               </td>
 
               <td>
@@ -159,16 +159,16 @@ const AssetList = () => {
                       : "bg-rose-600/20 text-rose-400"
                   }`}
                 >
-                  {asset.productType}
+                  {asset?.productType}
                 </span>
               </td>
 
               <td className="font-bold text-yellow-400">
-                {asset.productQuantity}
+                {asset?.productQuantity}
               </td>
 
               <td>
-                {asset.createdAt
+                {asset?.createdAt
                   ? new Date(asset.createdAt).toLocaleDateString()
                   : "-"}
               </td>
@@ -204,11 +204,11 @@ const AssetList = () => {
         </button>
 
         <span className="px-3 py-1">
-          Page {data.page} of {data.totalPages}
+          Page {data?.page} of {data?.totalPages}
         </span>
 
         <button
-          disabled={page === data.totalPages}
+          disabled={page === data?.totalPages}
           onClick={() => setPage((p) => p + 1)}
           className="px-4 py-1 rounded bg-slate-700 disabled:opacity-40"
         >
