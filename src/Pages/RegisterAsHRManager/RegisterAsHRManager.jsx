@@ -138,14 +138,14 @@ const RegisterAsHRManager = ({ setUser }) => {
               {...register("password", {
                 required: true,
                 minLength: 6,
-                pattern:
-                  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).+$/,
+                // pattern:
+                // /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).+$/,
               })}
               className="input input-bordered w-full bg-white/90"
             />
-            {errors.password?.type === "required" && (
+            {/* {errors.password?.type === "required" && (
               <p className="text-red-500 font-bold">password is required</p>
-            )}
+            )} */}
             {errors.password?.type === "minLength" && (
               <p className="text-red-500 font-bold">
                 Password must be 6 cheracters
