@@ -86,48 +86,6 @@ const EmDashboardLayout = () => {
                 <span className="is-drawer-close:hidden">My Assets</span>
               </Link>
             </li>
-
-            {/* List item */}
-            {/* {role === "employee" ||
-              (role === "admin" && (
-                <>
-                  <li>
-                    <NavLink
-                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                      data-tip="Request-Asset"
-                      to="/em-dashboard/request-asset"
-                    >
-                      <IoGitPullRequest className="text-xl"></IoGitPullRequest>
-                      <span className="is-drawer-close:hidden">
-                        Request Assets
-                      </span>
-                    </NavLink>
-                  </li>
-
-                  <li>
-                    <NavLink
-                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                      data-tip="My-Team"
-                      to="/em-dashboard/my-team"
-                    >
-                      <RiTeamFill className="text-xl"></RiTeamFill>
-                      <span className="is-drawer-close:hidden">My-Team</span>
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                      data-tip="Profile-Page"
-                      to="/em-dashboard/profile-page"
-                    >
-                      <AiFillProfile className="text-xl"></AiFillProfile>
-                      <span className="is-drawer-close:hidden">
-                        Profile Page (Shared)
-                      </span>
-                    </NavLink>
-                  </li>
-                </>
-              ))} */}
             {(role === "employee" || role === "admin") && (
               <>
                 <li>
@@ -136,13 +94,6 @@ const EmDashboardLayout = () => {
                     <span className="is-drawer-close:hidden">
                       Request Assets
                     </span>
-                  </NavLink>
-                </li>
-
-                <li>
-                  <NavLink to="/em-dashboard/my-team">
-                    <RiTeamFill className="text-xl" />
-                    <span className="is-drawer-close:hidden">My Team</span>
                   </NavLink>
                 </li>
 

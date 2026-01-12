@@ -8,7 +8,6 @@ const RequestAsset = () => {
   const axiosSecure = useAxios();
   const orderModalRef = useRef(null);
   const [loading, setLoading] = useState(true);
-
   const [selectedAsset, setSelectedAsset] = useState(null);
 
   const { data: assets = [] } = useQuery({
@@ -23,17 +22,19 @@ const RequestAsset = () => {
     setSelectedAsset(asset);
     orderModalRef.current.showModal();
   };
+
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
     }, 500);
   }, []);
+
   if (loading) {
     return <Loading />;
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1380px] mx-auto py-10 ">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-[1380px] mx-auto py-10">
       {assets.map((asset) => (
         <div key={asset._id} className="card shadow-sm bg-gray-300">
           <figure>
@@ -57,7 +58,7 @@ const RequestAsset = () => {
 
             <button
               onClick={() => handleRequestAssetModal(asset)}
-              className="btn text-black bg-amber-100 hover:bg-blue-400 w-full mt-3"
+              className="border border-blue-700 text-blue-700 hover:bg-[#CCE1FF] w-full mt-3 py-3 rounded-full font-semibold text-lg transition-transform hover:scale-105 cursor-pointer"
             >
               Request
             </button>
@@ -82,7 +83,9 @@ const RequestAsset = () => {
 
           <div className="modal-action">
             <form method="dialog">
-              <button className="btn">Close</button>
+              <button className="border border-blue-700 text-blue-700 hover:bg-[#CCE1FF] px-4 py-2 rounded-full font-semibold text-lg">
+                Close
+              </button>
             </form>
           </div>
         </div>

@@ -62,7 +62,7 @@ const SentRequestAsset = ({ orderModalRef, selectedAsset }) => {
       />
       <button
         type="submit"
-        className="btn bg-amber-300 text-black w-full hover:bg-blue-400"
+        className="btn bg-indigo-600 hover:bg-indigo-500 text-white font-semibold w-full"
       >
         Submit
       </button>

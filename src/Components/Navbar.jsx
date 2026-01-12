@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router";
 import useAuth from "../hooks/useAuth";
 import useRole from "../hooks/useRole";
@@ -10,46 +10,11 @@ const Navbar = () => {
   const { user, logOutUser } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
 
-  // ✅ Correct initial theme from localStorage or default "light"
   const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem("theme");
     return savedTheme === "dark" ? "dark" : "light";
   });
 
-  // Links
-  const links = (
-    <>
-      <li>
-        <NavLink to="/" className="hover:text-indigo-200">
-          Home
-        </NavLink>
-      </li>
-      {!user && (
-        <li>
-          <NavLink to="/em-dashboard" className="hover:text-indigo-200">
-            Join as Employee
-          </NavLink>
-        </li>
-      )}
-      {!user && (
-        <li>
-          <NavLink
-            to="/hr-dashboard/asset-list"
-            className="hover:text-indigo-200"
-          >
-            Join as HR Manager
-          </NavLink>
-        </li>
-      )}
-    </>
-  );
-
-  const handleLogOut = () => {
-    logOutUser();
-    setIsOpen(false);
-  };
-
-  // ✅ Apply theme on load & whenever theme changes
   useEffect(() => {
     const html = document.documentElement;
     if (theme === "dark") {
@@ -60,14 +25,60 @@ const Navbar = () => {
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  // ✅ Clean toggleTheme function
   const toggleTheme = () => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   };
 
+  const handleLogOut = () => {
+    logOutUser();
+    setIsOpen(false);
+  };
+
+  // ✅ Main Links + Additional Pages
+  const links = (
+    <>
+      <li>
+        <NavLink to="/" className="hover:text-indigo-200">
+          Home
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="/aboutUs" className="hover:text-indigo-200">
+          About Us
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="/contact" className="hover:text-indigo-200">
+          Contact
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="/blog" className="hover:text-indigo-200">
+          Blog
+        </NavLink>
+      </li>
+      {!user && (
+        <>
+          <li>
+            <NavLink to="/em-dashboard" className="hover:text-indigo-200">
+              Join as Employee
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/hr-dashboard/asset-list"
+              className="hover:text-indigo-200"
+            >
+              Join as HR Manager
+            </NavLink>
+          </li>
+        </>
+      )}
+    </>
+  );
+
   return (
-    <div className="navbar sticky top-0 z-50 shadow-md px-4 bg-gradient-to-r from-[#2B3C6A] via-[#3D4F80] to-[#5B6FA6] text-white">
-      {/* LEFT */}
+    <div className="navbar shadow-md px-4 bg-gradient-to-r from-[#2B3C6A] via-[#3D4F80] to-[#5B6FA6] text-white sticky top-0 z-50">
       <div className="navbar-start gap-2">
         {/* Mobile menu */}
         <div className="dropdown lg:hidden">
@@ -91,14 +102,13 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* CENTER LINKS */}
+      {/* Center Links */}
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
 
-      {/* RIGHT */}
+      {/* Right Side */}
       <div className="navbar-end flex items-center gap-4">
-        {/* Theme Toggle */}
         <button
           onClick={toggleTheme}
           className="flex items-center gap-2 px-3 py-2 cursor-pointer"
@@ -110,7 +120,6 @@ const Navbar = () => {
           )}
         </button>
 
-        {/* Login / Profile */}
         {user ? (
           <div className="relative">
             <img

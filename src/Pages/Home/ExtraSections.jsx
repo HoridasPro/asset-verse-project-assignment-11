@@ -6,7 +6,7 @@ const ExtraSections = () => (
     {/* How it works */}
     <section className="">
       <div>
-        <h2 className="text-3xl md:text-4xl font-bold mb-10">
+        <h2 className="text-black text-3xl md:text-4xl font-bold mb-10">
           How AssetVerse Works
         </h2>
 
@@ -30,7 +30,7 @@ const ExtraSections = () => (
           ].map((step, i) => (
             <div
               key={i}
-              className="bg-[#DBE5FF] p-8 rounded-xl shadow hover:shadow-lg transition"
+              className="text-black bg-[#DBE5FF] p-8 rounded-xl shadow hover:shadow-lg transition"
             >
               <div className="text-4xl text-indigo-600 mb-4 flex justify-center">
                 {step.icon}
@@ -44,7 +44,7 @@ const ExtraSections = () => (
     </section>
 
     {/* FAQ */}
-    <section className="py-20">
+    <section className="py-20 text-black">
       <div>
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">
           Frequently Asked Questions

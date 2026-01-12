@@ -15,7 +15,6 @@ import RequestAsset from "../Pages/EmDashboard/RequestAsset";
 import AllRequests from "../Pages/HrDashboard/AllRequests";
 import MyAssets from "../Pages/EmDashboard/MyAssets";
 import ProfilePage from "../Pages/EmDashboard/ProfilePage";
-import MyTeam from "../Pages/EmDashboard/MyTeam";
 import MyEmployeeList from "../Pages/HrDashboard/MyEmployeeList";
 import UpgradePackage from "../Pages/HrDashboard/UpgradePackage";
 import PaymentHistory from "../Pages/HrDashboard/PaymentHistory";
@@ -32,6 +31,9 @@ import AdminDashboardHome from "../Pages/HrDashboard/DashboardHome/AdminDashboar
 import EmployeeDashboardHome from "../Pages/EmDashboard/DashboardHome/EmployeeDashboardHome";
 import DownloadAssignedList from "../Components/DownloadAssignedList/DownloadAssignedList";
 import HrDashboardHome from "../Pages/HrDashboard/DashboardHome/HrDashboardHome";
+import AboutUs from "./../Pages/AdditionalPages/AboutUs";
+import Contact from "../Pages/AdditionalPages/Contact";
+import Blog from './../Pages/AdditionalPages/Blog';
 
 const router = createBrowserRouter([
   {
@@ -42,6 +44,18 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: "aboutUs",
+        element: <AboutUs></AboutUs>,
+      },
+      {
+        path: "contact",
+        element: <Contact></Contact>,
+      },
+      {
+        path: "blog",
+        element: <Blog></Blog>,
       },
       {
         path: "joinAsEmployee",
@@ -164,10 +178,7 @@ const router = createBrowserRouter([
         path: "request-asset",
         element: <RequestAsset />,
       },
-      {
-        path: "my-team",
-        element: <MyTeam />,
-      },
+
       {
         path: "profile-page",
         element: <ProfilePage />,
