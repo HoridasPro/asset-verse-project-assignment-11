@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -17,9 +17,9 @@
 
     --theme-gradient-dark: linear-gradient(
       to bottom right,
-      #0f172a,
+      /* #0f172a,
       #020617,
-      #020617
+      #020617 */
     );
   }
 
