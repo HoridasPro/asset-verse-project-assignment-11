@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, NavLink } from "react-router";
 import useAuth from "../hooks/useAuth";
 import useRole from "../hooks/useRole";
@@ -10,24 +10,24 @@ const Navbar = () => {
   const { user, logOutUser } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
 
-  const [theme, setTheme] = useState(() => {
-    const savedTheme = localStorage.getItem("theme");
-    return savedTheme === "dark" ? "dark" : "light";
-  });
+  // const [theme, setTheme] = useState(() => {
+  //   const savedTheme = localStorage.getItem("theme");
+  //   return savedTheme === "dark" ? "dark" : "light";
+  // });
 
-  useEffect(() => {
-    const html = document.documentElement;
-    if (theme === "dark") {
-      html.classList.add("dark");
-    } else {
-      html.classList.remove("dark");
-    }
-    localStorage.setItem("theme", theme);
-  }, [theme]);
+  // useEffect(() => {
+  //   const html = document.documentElement;
+  //   if (theme === "dark") {
+  //     html.classList.add("dark");
+  //   } else {
+  //     html.classList.remove("dark");
+  //   }
+  //   localStorage.setItem("theme", theme);
+  // }, [theme]);
 
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
-  };
+  // const toggleTheme = () => {
+  //   setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  // };
 
   const handleLogOut = () => {
     logOutUser();
@@ -109,7 +109,7 @@ const Navbar = () => {
 
       {/* Right Side */}
       <div className="navbar-end flex items-center gap-4">
-        <button
+        {/* <button
           onClick={toggleTheme}
           className="flex items-center gap-2 px-3 py-2 cursor-pointer"
         >
@@ -118,7 +118,7 @@ const Navbar = () => {
           ) : (
             <BiMoon className="text-white" size={22} />
           )}
-        </button>
+        </button> */}
 
         {user ? (
           <div className="relative">
