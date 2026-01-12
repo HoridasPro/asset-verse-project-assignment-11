@@ -20,7 +20,11 @@ const AssetList = () => {
   const [editCreatedAt, setEditCreatedAt] = useState("");
   const [loading, setLoading] = useState(true);
 
-  const { data=[], refetch, isFetching } = useQuery({
+  const {
+    data = [],
+    refetch,
+    isFetching,
+  } = useQuery({
     queryKey: ["assets", page],
     queryFn: async () => {
       const res = await axiosSecure.get(
@@ -30,7 +34,8 @@ const AssetList = () => {
     },
     keepPreviousData: true,
   });
- 
+  // console.log("in the data", data);
+
   const assets = data?.data || [];
 
   // Delete handler

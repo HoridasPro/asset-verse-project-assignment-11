@@ -1,4 +1,35 @@
 @import "tailwindcss";
-@plugin "daisyui" {
-  themes: light --default;
+@plugin "daisyui";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Theme gradients */
+@layer base {
+  :root {
+    --theme-gradient-light: linear-gradient(
+      to bottom right,
+      #eef2ff,
+      #e0e7ff,
+      #c7d2fe
+    );
+
+    --theme-gradient-dark: linear-gradient(
+      to bottom right,
+      #0f172a,
+      #020617,
+      #020617
+    );
+  }
+
+  body {
+    @apply min-h-screen transition-colors duration-500;
+    background-image: var(--theme-gradient-light);
+    font-family: "Poppins", sans-serif;
+  }
+
+  .dark body {
+    background-image: var(--theme-gradient-dark);
+  }
 }

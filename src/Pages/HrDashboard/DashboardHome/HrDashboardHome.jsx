@@ -4,18 +4,18 @@ import Loading from "../../../Loading/Loading";
 import UserDashboardHome from "./UserDashboardHome";
 import AdminDashboardHome from "./AdminDashboardHome";
 
-const DashboardHome = ({ children }) => {
-  const { role, isRoleLoading } = useRole();
-  if (isRoleLoading) {
+const HrDashboardHome = ({ children }) => {
+  const { role,isLoading  } = useRole();
+  if (isLoading) {
     return <Loading></Loading>;
   }
   if (role === "admin") {
     return <AdminDashboardHome></AdminDashboardHome>;
   }
-  if (role === "user") {
+  if (role === "hr") {
     return <UserDashboardHome></UserDashboardHome>;
   }
   return children;
 };
 
-export default DashboardHome;
+export default HrDashboardHome;

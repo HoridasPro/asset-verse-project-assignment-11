@@ -10,9 +10,13 @@ import { GrUpgrade } from "react-icons/gr";
 import { FaUsersCog } from "react-icons/fa";
 import imgLogo from "../assets/assetLogo.png";
 import Navbar from "../Components/Navbar";
+import Loading from "../Loading/Loading";
 
 const HrDashboardLayout = () => {
-  const { role } = useRole();
+  const { role, isLoading } = useRole();
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
 
   return (
     <>
@@ -44,7 +48,13 @@ const HrDashboardLayout = () => {
                 <path d="M14 10l2 2l-2 2"></path>
               </svg>
             </label>
-            <div className="px-4 text-2xl font-bold">HR Manager Dashboard</div>
+            {role === "admin" ? (
+              <div className="px-4 text-2xl font-bold">Admin Dashboard</div>
+            ) : (
+              <div className="px-4 text-2xl font-bold">
+                HR Manager Dashboard
+              </div>
+            )}
           </nav>
 
           {/* Page content here */}
@@ -66,30 +76,95 @@ const HrDashboardLayout = () => {
                   <img src={imgLogo} alt="" />
                 </Link>
               </li>
-              <li>
-                <Link
-                  to="/hr-dashboard"
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="Home Page"
-                >
-                  {/* Home icon */}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    strokeLinejoin="round"
-                    strokeLinecap="round"
-                    strokeWidth="2"
-                    fill="none"
-                    stroke="currentColor"
-                    className="my-1.5 inline-block size-4"
-                  >
-                    <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
-                    <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                  </svg>
+              {role === "hr" && (
+                <>
+                  <li>
+                    <NavLink
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Asset List"
+                      to="/hr-dashboard/asset-list"
+                    >
+                      <RiPlayListAddFill className="text-xl"></RiPlayListAddFill>
+                      <span className="is-drawer-close:hidden">
+                        Asset List (Main Dashboard)
+                      </span>
+                    </NavLink>
+                  </li>
+                  {/* List item */}
+                  <li>
+                    <NavLink
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Add Asset"
+                      to="/hr-dashboard/add-asset"
+                    >
+                      <MdWebAsset className="text-xl"></MdWebAsset>
+                      <span className="is-drawer-close:hidden">Add Asset</span>
+                    </NavLink>
+                  </li>
 
-                  <span className="is-drawer-close:hidden">Homepage</span>
-                </Link>
-              </li>
+                  {/* add list */}
+                  <li>
+                    <NavLink
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="All Requests"
+                      to="/hr-dashboard/all-requests"
+                    >
+                      <BiGitPullRequest className="text-xl"></BiGitPullRequest>
+                      <span className="is-drawer-close:hidden">
+                        All Requests
+                      </span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="My-Employees"
+                      to="/hr-dashboard/my-employee"
+                    >
+                      <FaUsers className="text-xl"></FaUsers>
+                      <span className="is-drawer-close:hidden">
+                        My-employees List
+                      </span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="User Management"
+                      to="/hr-dashboard/user-management"
+                    >
+                      <FaUsersCog className="text-xl"></FaUsersCog>
+                      <span className="is-drawer-close:hidden">
+                        User Management
+                      </span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Upgrade-Pakage"
+                      to="/hr-dashboard/upgrade-pakage"
+                    >
+                      <GrUpgrade className="text-xl"></GrUpgrade>
+                      <span className="is-drawer-close:hidden">
+                        Upgrade Package
+                      </span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Payment History"
+                      to="/hr-dashboard/payment-history"
+                    >
+                      <MdOutlinePayment className="text-xl"></MdOutlinePayment>
+                      <span className="is-drawer-close:hidden">
+                        Payment History
+                      </span>
+                    </NavLink>
+                  </li>
+                </>
+              )}
 
               {role === "admin" && (
                 <>

@@ -49,7 +49,7 @@ const features = [
 
 const FeaturesSection = () => {
   return (
-    <section className="bg-gray-50">
+    <section>
       <div className="max-w-7xl mx-auto px-6">
         {/* Section Header */}
         <motion.div
@@ -77,7 +77,7 @@ const FeaturesSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition"
+              className="bg-[#DBE5FF] rounded-2xl p-8 shadow-md hover:shadow-xl transition"
             >
               <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-indigo-100 text-indigo-600 text-2xl mb-6">
                 {feature.icon}

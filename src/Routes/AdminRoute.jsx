@@ -6,9 +6,9 @@ import Forbidden from "../Forbidden/Forbidden";
 // import { Navigate } from "react-router";
 
 const AdminRoute = ({ children }) => {
-  const { role, isRoleLoading } = useRole();
+  const { role, isLoading } = useRole();
 
-  if (isRoleLoading) {
+  if (isLoading) {
     return <Loading />;
   }
 

@@ -4,14 +4,15 @@ import useAuth from "./useAuth";
 import { useNavigate } from "react-router";
 
 const axiosSecure = axios.create({
-  baseURL: "https://assetverse-server-site-topaz.vercel.app",
+  baseURL: "http://localhost:3000",
 });
 //  load use axios
 const useAxios = () => {
-  const { user, logOutUser } = useAuth();
+  const { user, logOutUser, loading } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (loading) return;
     const reqInterceptor = axiosSecure.interceptors.request.use(
       async (config) => {
         if (user) {
@@ -37,7 +38,7 @@ const useAxios = () => {
       axiosSecure.interceptors.request.eject(reqInterceptor);
       axiosSecure.interceptors.response.eject(resInterceptor);
     };
-  }, [user, logOutUser, navigate]);
+  }, [user, logOutUser, loading, navigate]);
 
   return axiosSecure;
 };

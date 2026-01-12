@@ -5,6 +5,7 @@ import { photoUpload } from "../../Utils/UploadPhoto";
 import useAxios from "../../hooks/useAxios";
 import Swal from "sweetalert2";
 import { Link, useLocation, useNavigate } from "react-router";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"; // ✅ Eye Icons
 
 const RegisterAsEmployee = ({ setUser }) => {
   const {
@@ -13,11 +14,14 @@ const RegisterAsEmployee = ({ setUser }) => {
     formState: { errors },
     reset,
   } = useForm();
+
   const { registerUser, userProfileUpdate } = useAuth();
   const axiosSecure = useAxios();
   const [loading, setLoading] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+
+  const [showPassword, setShowPassword] = useState(false); // ✅ Show/Hide password
 
   const handleEmployeeRegister = async (data) => {
     setLoading(true);
@@ -26,11 +30,11 @@ const RegisterAsEmployee = ({ setUser }) => {
       const photoURL = await photoUpload(imageFile);
 
       await registerUser(data.email, data.password);
-      // navigate(location?.state || "/");
+      navigate(location?.state || "/");
 
       await userProfileUpdate({
         displayName: data.name,
-        photoURL: photoURL,
+        photoURL,
         role: "employee",
       });
 
@@ -46,9 +50,9 @@ const RegisterAsEmployee = ({ setUser }) => {
       const res = await axiosSecure.post("/em-users", employeeInfo);
       if (setUser) setUser(res.data);
 
-      await Swal.fire({
+      Swal.fire({
         icon: "success",
-        title: "Employee Registered",
+        title: "Employee Registered 🎉",
         text: `Welcome ${data.name}!`,
         timer: 2000,
         showConfirmButton: false,
@@ -56,14 +60,12 @@ const RegisterAsEmployee = ({ setUser }) => {
 
       reset();
       navigate(location?.state || "/");
-      console.log("Employee registered:", res.data);
     } catch (error) {
-      console.error("Registration failed:", error);
       Swal.fire({
         icon: "error",
         title: "Registration Failed",
         text:
-          error?.response?.data?.message || error.message || "Try again later.",
+          error?.response?.data?.message || error.message || "Try again later",
       });
     } finally {
       setLoading(false);
@@ -71,117 +73,133 @@ const RegisterAsEmployee = ({ setUser }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-indigo-900 to-purple-900 px-4">
-      <div className="w-full max-w-md bg-white/10 backdrop-blur-xl p-8 rounded-2xl shadow-2xl">
-        <h2 className="text-4xl font-extrabold text-center mb-2 bg-gradient-to-r from-cyan-400 via-indigo-400 to-pink-400 bg-clip-text text-transparent">
-          Register as Employee
-        </h2>
-        <p className="text-center text-gray-300 mb-6">
-          Fill your details to create an account
-        </p>
-
+    <div className="min-h-screen flex items-center justify-center px-4 py-10">
+      <div className="w-full max-w-md">
         <form
           onSubmit={handleSubmit(handleEmployeeRegister)}
-          className="space-y-4"
+          className="mt-10 bg-[#DBE5FF] backdrop-blur-xl rounded-2xl shadow-2xl p-8 space-y-5"
         >
+          <h2 className="text-4xl font-extrabold text-center bg-gradient-to-r from-cyan-400 via-indigo-400 to-pink-400 bg-clip-text text-transparent">
+            Register as Employee
+          </h2>
+          <p className="text-black text-center">
+            Fill your details to create an account
+          </p>
+
+          {/* Name */}
           <div>
-            <label className="text-white font-semibold">Full Name</label>
+            <label className="block font-semibold text-black mb-1">
+              Full Name
+            </label>
             <input
-              {...register("name", { required: true })}
               type="text"
-              className="input input-bordered w-full bg-white/90"
+              {...register("name", { required: true })}
+              className="input border border-gray-300 w-full bg-[#DBE5FF] text-black focus:outline-none focus:ring-0"
+              placeholder="Enter your name"
             />
-            {errors.name?.type === "required" && (
+            {errors.name && (
               <p className="text-red-500 font-bold">Name is required</p>
             )}
           </div>
 
+          {/* Photo */}
           <div>
-            <label className="text-white font-semibold">Photo</label>
+            <label className="block font-semibold text-black mb-1">Photo</label>
             <input
               type="file"
               accept="image/*"
               {...register("photo", { required: true })}
-              className="file-input file-input-bordered w-full bg-white/90"
+              className="w-full border border-gray-300 rounded-lg bg-[#DBE5FF] text-black
+              file:bg-[#DBE5FF] file:text-black file:border-0
+              file:px-4 file:py-2 file:mr-4
+              focus:outline-none focus:ring-0 cursor-pointer"
             />
-            {errors.photo?.type === "required" && (
+            {errors.photo && (
               <p className="text-red-500 font-bold">Photo is required</p>
             )}
           </div>
 
+          {/* Email */}
           <div>
-            <label className="text-white font-semibold">Email</label>
+            <label className="block font-semibold text-black mb-1">Email</label>
             <input
               type="email"
               {...register("email", { required: true })}
-              className="input input-bordered w-full bg-white/90"
+              className="input border border-gray-300 w-full bg-[#DBE5FF] text-black focus:outline-none focus:ring-0"
+              placeholder="Enter your email"
             />
-            {errors.email?.type === "required" && (
+            {errors.email && (
               <p className="text-red-500 font-bold">Email is required</p>
             )}
           </div>
 
+          {/* Password with Eye Icon */}
           <div>
-            <label className="text-white font-semibold">Password</label>
-            <input
-              type="password"
-              {...register("password", {
-                required: true,
-                minLength: 6,
-                pattern:
-                  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).+$/,
-              })}
-              className="input input-bordered w-full bg-white/90"
-            />
-            {errors.password?.type === "required" && (
-              <p className="text-red-500 font-bold">password is required</p>
-            )}
-            {errors.password?.type === "minLength" && (
-              <p className="text-red-500 font-bold">
-                Password must be 6 cheracters
-              </p>
+            <label className="block font-semibold text-black mb-1">
+              Password
+            </label>
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                {...register("password", {
+                  required: true,
+                  minLength: 6,
+                  pattern:
+                    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{6,}$/,
+                })}
+                className="input border border-gray-300 w-full bg-[#DBE5FF] text-black focus:outline-none focus:ring-0"
+                placeholder="Enter your password"
+              />
+              <span
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-700 cursor-pointer select-none"
+              >
+                {showPassword ? (
+                  <AiOutlineEyeInvisible size={22} />
+                ) : (
+                  <AiOutlineEye size={22} />
+                )}
+              </span>
+            </div>
+            {errors.password && (
+              <p className="text-red-500 font-bold">Password is required</p>
             )}
             {errors.password?.type === "pattern" && (
               <p className="text-red-500 font-bold">
-                Password bust be includes at least one charecter, at least one
-                number and at least one speacial character
+                Password must be minimum 6 characters and include a letter, a
+                number, and a special character.
               </p>
             )}
           </div>
 
+          {/* Date */}
           <div>
-            <label className="text-white font-semibold">Date of Birth</label>
+            <label className="block font-semibold text-black mb-1">
+              Date of Birth
+            </label>
             <input
               type="date"
-              {...register("dateOfBirth", {
-                required: true,
-              })}
-              className="input input-bordered w-full bg-white/90"
+              {...register("dateOfBirth", { required: true })}
+              className="input border border-gray-300 w-full bg-[#DBE5FF] text-black focus:outline-none focus:ring-0"
             />
-            {errors.dateOfBirth?.type === "required" && (
-              <p className="text-red-500 font-bold">DateOfBirth is required</p>
-            )}
           </div>
 
           <button
-            state={location.state}
             type="submit"
             disabled={loading}
-            className={`cursor-pointer w-full py-3 rounded-full text-white text-lg font-bold ${
-              loading
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:scale-105 transition-transform"
-            }`}
+            className="border border-blue-700 text-blue-700 hover:bg-[#CCE1FF] w-full mt-4 py-3 rounded-full text-lg font-bold
+            hover:scale-105 transition-transform cursor-pointer disabled:opacity-60"
           >
             {loading ? "Processing..." : "Register"}
           </button>
+
+          <p className="text-black text-center">
+            Already have an account?
+            <Link to="/login" className="text-blue-500 font-bold ml-2">
+              Login
+            </Link>
+          </p>
         </form>
-        <p className="text-white text-center mt-3">
-          If you have an account ? please
-          <Link to="/login" className="text-blue-500 font-bold ml-2">
-            Login
-          </Link>
-        </p>
       </div>
     </div>
   );

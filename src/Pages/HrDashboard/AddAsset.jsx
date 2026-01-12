@@ -6,7 +6,11 @@ import Swal from "sweetalert2";
 import Loading from "../../Loading/Loading";
 
 const AddAsset = () => {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const axiosSecure = useAxios();
   const [loading, setLoading] = useState(true);
 
@@ -24,7 +28,7 @@ const AddAsset = () => {
         createdAt: new Date(),
       };
 
-      await axiosSecure.post("hrAssets", hrAssetInfo).then((res) => {
+      await axiosSecure.post("/hrAssets", hrAssetInfo).then((res) => {
         if (res.data.insertedId) {
           Swal.fire({
             position: "top-end",
@@ -39,11 +43,13 @@ const AddAsset = () => {
       console.log(error);
     }
   };
+
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
     }, 500);
   }, [setLoading]);
+
   if (loading) {
     return <Loading />;
   }
@@ -87,9 +93,15 @@ const AddAsset = () => {
               Non-returnable
             </label>
           </div>
+          {errors.productType && (
+            <p className="text-red-500 font-bold text-center mb-5">
+              Please select a product type
+            </p>
+          )}
 
-          {/*Gradient Form Card */}
+          {/* Gradient Form Card */}
           <div className="max-w-xl mx-auto bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 rounded-xl p-8 shadow-xl border border-indigo-200">
+            {/* Product Name */}
             <fieldset className="mb-5">
               <label className="block text-lg font-semibold mb-1 text-gray-800">
                 Product Name
@@ -97,11 +109,18 @@ const AddAsset = () => {
               <input
                 type="text"
                 {...register("productName", { required: true })}
-                className="input input-bordered w-full"
+                className="input border border-gray-300 w-full bg-[#DBE5FF] text-black rounded-xl
+                focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 px-4 py-2"
                 placeholder="Enter product name"
               />
+              {errors.productName && (
+                <p className="text-red-500 font-bold mt-1">
+                  Product name is required
+                </p>
+              )}
             </fieldset>
 
+            {/* Product Quantity */}
             <fieldset className="mb-5">
               <label className="block text-lg font-semibold mb-1 text-gray-800">
                 Product Quantity
@@ -109,11 +128,18 @@ const AddAsset = () => {
               <input
                 type="number"
                 {...register("productQuantity", { required: true })}
-                className="input input-bordered w-full"
+                className="input border border-gray-300 w-full bg-[#DBE5FF] text-black rounded-xl
+                focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 px-4 py-2"
                 placeholder="Enter quantity"
               />
+              {errors.productQuantity && (
+                <p className="text-red-500 font-bold mt-1">
+                  Product quantity is required
+                </p>
+              )}
             </fieldset>
 
+            {/* Product Image */}
             <fieldset>
               <label className="block text-lg font-semibold mb-1 text-gray-800">
                 Product Image
@@ -121,16 +147,23 @@ const AddAsset = () => {
               <input
                 type="file"
                 accept="image/*"
-                className="file-input file-input-bordered w-full"
                 {...register("photo", { required: true })}
+                className="w-full border border-gray-300 rounded-lg bg-[#DBE5FF] text-black
+                file:bg-[#DBE5FF] file:text-black file:border-0 file:px-4 file:py-2 file:mr-4
+                focus:outline-none focus:ring-2 focus:ring-indigo-400 cursor-pointer"
               />
+              {errors.photo && (
+                <p className="text-red-500 font-bold mt-1">
+                  Product image is required
+                </p>
+              )}
             </fieldset>
           </div>
 
           {/* Submit Button */}
           <button
             type="submit"
-            className="mt-10 mx-auto flex px-10 py-3 rounded-full text-lg font-bold text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:scale-105 transition-transform shadow-lg cursor-pointer"
+            className="mt-10 mx-auto flex px-10 py-3 rounded-full text-lg font-bold text-white border border-blue-700 text-blue-700 hover:scale-105 transition-transform shadow-lg cursor-pointer"
           >
             Save to Assets Collection
           </button>

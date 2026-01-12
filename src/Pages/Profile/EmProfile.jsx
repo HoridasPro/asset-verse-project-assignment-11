@@ -39,7 +39,7 @@ const EmProfile = () => {
 
           {/* Role Badge */}
           <span className="absolute bottom-3 right-1/2 translate-x-1/2 bg-emerald-600 text-white text-xs px-5 py-1 rounded-full shadow font-semibold">
-            {role === "admin" ? "HR Manager" : "Employee"}
+            {role === "employee" ? "employee" : "hr"}
           </span>
         </div>
 

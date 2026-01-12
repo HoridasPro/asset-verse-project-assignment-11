@@ -1,26 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router";
 import useAuth from "../hooks/useAuth";
 import useRole from "../hooks/useRole";
 import imgLogo from "../assets/assetLogo.png";
+import { BiMoon, BiSun } from "react-icons/bi";
 
 const Navbar = () => {
   const { role } = useRole();
   const { user, logOutUser } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
 
+  // ✅ Correct initial theme from localStorage or default "light"
+  const [theme, setTheme] = useState(() => {
+    const savedTheme = localStorage.getItem("theme");
+    return savedTheme === "dark" ? "dark" : "light";
+  });
+
+  // Links
   const links = (
     <>
       <li>
-        <NavLink to="/">Home</NavLink>
+        <NavLink to="/" className="hover:text-indigo-200">
+          Home
+        </NavLink>
       </li>
-
-      <li>
-        <NavLink to="/em-dashboard">Join as Employee</NavLink>
-      </li>
-      <li>
-        <NavLink to="/hr-dashboard">Join as HR Manager</NavLink>
-      </li>
+      {!user && (
+        <li>
+          <NavLink to="/em-dashboard" className="hover:text-indigo-200">
+            Join as Employee
+          </NavLink>
+        </li>
+      )}
+      {!user && (
+        <li>
+          <NavLink
+            to="/hr-dashboard/asset-list"
+            className="hover:text-indigo-200"
+          >
+            Join as HR Manager
+          </NavLink>
+        </li>
+      )}
     </>
   );
 
@@ -29,43 +49,68 @@ const Navbar = () => {
     setIsOpen(false);
   };
 
+  // ✅ Apply theme on load & whenever theme changes
+  useEffect(() => {
+    const html = document.documentElement;
+    if (theme === "dark") {
+      html.classList.add("dark");
+    } else {
+      html.classList.remove("dark");
+    }
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  // ✅ Clean toggleTheme function
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  };
+
   return (
-    <div className="navbar bg-base-100 shadow-sm px-4">
+    <div className="navbar sticky top-0 z-50 shadow-md px-4 bg-gradient-to-r from-[#2B3C6A] via-[#3D4F80] to-[#5B6FA6] text-white">
       {/* LEFT */}
       <div className="navbar-start gap-2">
         {/* Mobile menu */}
         <div className="dropdown lg:hidden">
-          <div tabIndex={0} role="button" className="btn btn-ghost">
+          <div tabIndex={0} role="button" className="btn btn-ghost text-white">
             ☰
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content bg-[#3D4F80] rounded-box mt-3 w-52 p-2 shadow"
           >
             {links}
           </ul>
         </div>
-
-        {user?.companyLogo ? (
-          <div className="flex items-center gap-2">
-            <img
-              src={user.companyLogo}
-              alt="Company Logo"
-              className="w-10 h-10 rounded-full border"
-            />
-          </div>
-        ) : (
-          <div className="flex items-center gap-2">
-            <img src={imgLogo} className="w-8 h-8" alt="AssetVerse" />
-          </div>
-        )}
+        <div className="flex items-center gap-2">
+          <img
+            src={imgLogo}
+            alt="Company Logo"
+            className="w-10 h-10 rounded-full border"
+          />
+          <h2 className="font-bold text-xl">Asset Verse</h2>
+        </div>
       </div>
 
+      {/* CENTER LINKS */}
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
 
-      <div className="navbar-end">
+      {/* RIGHT */}
+      <div className="navbar-end flex items-center gap-4">
+        {/* Theme Toggle */}
+        <button
+          onClick={toggleTheme}
+          className="flex items-center gap-2 px-3 py-2 cursor-pointer"
+        >
+          {theme === "dark" ? (
+            <BiSun className="text-yellow-400" size={22} />
+          ) : (
+            <BiMoon className="text-white" size={22} />
+          )}
+        </button>
+
+        {/* Login / Profile */}
         {user ? (
           <div className="relative">
             <img
@@ -73,23 +118,23 @@ const Navbar = () => {
                 user?.photoURL || "https://i.ibb.co/3pQ9Q6q/default-user.png"
               }
               alt="Profile"
-              className="w-10 h-10 rounded-full cursor-pointer"
+              className="w-10 h-10 rounded-full cursor-pointer border-2 border-white"
               onClick={() => setIsOpen(!isOpen)}
             />
 
             {isOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded z-20">
+              <div className="absolute right-0 mt-2 w-48 bg-[#3D4F80] text-white shadow-lg rounded z-20">
                 <ul>
-                  <li className="p-2 text-center font-semibold border-b">
+                  <li className="p-2 text-center font-semibold border-b border-white/20">
                     {user?.displayName}
                   </li>
 
                   {role === "employee" && (
                     <>
-                      <li className="p-2 hover:bg-gray-200">
+                      <li className="p-2 hover:bg-indigo-500">
                         <Link to="/em-dashboard">Employee Dashboard</Link>
                       </li>
-                      <li className="p-2 hover:bg-gray-200">
+                      <li className="p-2 hover:bg-indigo-500">
                         <Link to="/emProfile">Profile</Link>
                       </li>
                     </>
@@ -97,26 +142,40 @@ const Navbar = () => {
 
                   {role === "admin" && (
                     <>
-                      <li className="p-2 hover:bg-gray-200">
-                        <Link to="/hr-dashboard">HR Dashboard</Link>
+                      <li className="p-2 hover:bg-indigo-500">
+                        <Link to="/hr-dashboard">Admin Dashboard</Link>
                       </li>
-                      <li className="p-2 hover:bg-gray-200">
+                      <li className="p-2 hover:bg-indigo-500">
                         <Link to="/hrProfile">Profile</Link>
                       </li>
                     </>
                   )}
 
-                  <li className="p-2 hover:bg-gray-200">
-                    <Link to="/">
-                      <button onClick={handleLogOut}>Logout</button>
-                    </Link>
+                  {role === "hr" && (
+                    <>
+                      <li className="p-2 hover:bg-indigo-500">
+                        <Link to="/hr-dashboard/asset-list">HR Dashboard</Link>
+                      </li>
+                      <li className="p-2 hover:bg-indigo-500">
+                        <Link to="/hrProfile">Profile</Link>
+                      </li>
+                    </>
+                  )}
+
+                  <li className="p-2 hover:bg-indigo-500">
+                    <button onClick={handleLogOut} className="w-full text-left">
+                      Logout
+                    </button>
                   </li>
                 </ul>
               </div>
             )}
           </div>
         ) : (
-          <Link to="/login" className="btn btn-primary">
+          <Link
+            to="/login"
+            className="btn bg-indigo-600 hover:bg-indigo-500 text-white font-semibold"
+          >
             Login
           </Link>
         )}

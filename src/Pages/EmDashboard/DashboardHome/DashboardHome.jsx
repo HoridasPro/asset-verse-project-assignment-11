@@ -11,12 +11,6 @@ const DashboardHome = () => {
   if (role === "employee") {
     return <EmployeeDashboardHome></EmployeeDashboardHome>;
   }
-
-  return (
-    <div>
-      <h1>this employee dasdboard home</h1>
-    </div>
-  );
 };
 
 export default DashboardHome;

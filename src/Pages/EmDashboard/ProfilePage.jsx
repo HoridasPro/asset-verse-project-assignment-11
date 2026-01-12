@@ -141,7 +141,7 @@ const ProfilePage = () => {
               </label>
               <input
                 type="email"
-                value={user.email}
+                value={user?.email}
                 readOnly
                 className="input input-bordered w-full bg-gray-100"
               />

@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+
 const testimonials = [
   {
     name: "Sarah Ahmed",
@@ -33,9 +34,12 @@ const stats = [
   { label: "Employees Supported", value: "10K+" },
   { label: "Uptime Reliability", value: "99.9%" },
 ];
+
+const logos = ["TechNova", "BlueWave", "NextGen", "InnovaCorp", "CloudAxis"];
+
 const TestimonialsStats = () => {
   return (
-    <section className="bg-white py-20">
+    <section className="py-20">
       <div className="max-w-7xl mx-auto px-6">
         {/* Stats */}
         <motion.div
@@ -46,7 +50,10 @@ const TestimonialsStats = () => {
           className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20 text-center"
         >
           {stats.map((stat, index) => (
-            <div key={index} className="bg-blue-200 py-5 px-10 rounded-2xl">
+            <div
+              key={index}
+              className="bg-[#DBE5FF] shadow-md py-5 hover:shadow-xl px-10 rounded-2xl"
+            >
               <h3 className="text-4xl font-bold text-indigo-600">
                 {stat.value}
               </h3>
@@ -73,7 +80,7 @@ const TestimonialsStats = () => {
         </motion.div>
 
         {/* Testimonials Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
           {testimonials.map((item, index) => (
             <motion.div
               key={index}
@@ -81,7 +88,7 @@ const TestimonialsStats = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-gray-50 rounded-2xl p-8 shadow-sm hover:shadow-lg transition"
+              className="bg-[#DBE5FF] rounded-2xl p-8 shadow-md hover:shadow-lg transition"
             >
               <p className="text-gray-700 italic mb-6">“{item.quote}”</p>
 
@@ -102,26 +109,40 @@ const TestimonialsStats = () => {
           ))}
         </div>
 
-        {/* Trust Logos */}
+        {/* Marquee Logos */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="mt-20 text-center"
+          className="mt-20 overflow-hidden"
         >
-          <p className="text-gray-500 mb-6">
-            Trusted by fast-growing teams across industries
-          </p>
-          <div className="flex flex-wrap justify-center gap-10 opacity-70">
-            <span className="font-bold text-gray-400">TechNova</span>
-            <span className="font-bold text-gray-400">BlueWave</span>
-            <span className="font-bold text-gray-400">NextGen</span>
-            <span className="font-bold text-gray-400">InnovaCorp</span>
-            <span className="font-bold text-gray-400">CloudAxis</span>
+          <div className="flex animate-marquee gap-16 whitespace-nowrap">
+            {logos.concat(logos).map((logo, i) => (
+              <span
+                key={i}
+                className="font-bold text-gray-400 text-xl inline-block"
+              >
+                {logo}
+              </span>
+            ))}
           </div>
         </motion.div>
       </div>
+
+      {/* Marquee animation */}
+      <style>
+        {`
+          @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+          }
+          .animate-marquee {
+            display: inline-flex;
+            animation: marquee 20s linear infinite;
+          }
+        `}
+      </style>
     </section>
   );
 };

@@ -10,6 +10,7 @@ import Navbar from "../Components/Navbar";
 
 const EmDashboardLayout = () => {
   const { role } = useRole();
+
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -38,7 +39,11 @@ const EmDashboardLayout = () => {
               <path d="M14 10l2 2l-2 2"></path>
             </svg>
           </label>
-          <div className="px-4 text-2xl font-bold">Employee Dashboard</div>
+          {role === "admin" ? (
+            <div className="px-4 text-2xl font-bold">Admin Dashboard</div>
+          ) : (
+            <div className="px-4 text-2xl font-bold">Employee Dashboard </div>
+          )}
         </nav>
 
         {/* Page content here */}
@@ -83,15 +88,51 @@ const EmDashboardLayout = () => {
             </li>
 
             {/* List item */}
-            {role === "employee" && (
+            {/* {role === "employee" ||
+              (role === "admin" && (
+                <>
+                  <li>
+                    <NavLink
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Request-Asset"
+                      to="/em-dashboard/request-asset"
+                    >
+                      <IoGitPullRequest className="text-xl"></IoGitPullRequest>
+                      <span className="is-drawer-close:hidden">
+                        Request Assets
+                      </span>
+                    </NavLink>
+                  </li>
+
+                  <li>
+                    <NavLink
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="My-Team"
+                      to="/em-dashboard/my-team"
+                    >
+                      <RiTeamFill className="text-xl"></RiTeamFill>
+                      <span className="is-drawer-close:hidden">My-Team</span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="Profile-Page"
+                      to="/em-dashboard/profile-page"
+                    >
+                      <AiFillProfile className="text-xl"></AiFillProfile>
+                      <span className="is-drawer-close:hidden">
+                        Profile Page (Shared)
+                      </span>
+                    </NavLink>
+                  </li>
+                </>
+              ))} */}
+            {(role === "employee" || role === "admin") && (
               <>
                 <li>
-                  <NavLink
-                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="Request-Asset"
-                    to="/em-dashboard/request-asset"
-                  >
-                    <IoGitPullRequest className="text-xl"></IoGitPullRequest>
+                  <NavLink to="/em-dashboard/request-asset">
+                    <IoGitPullRequest className="text-xl" />
                     <span className="is-drawer-close:hidden">
                       Request Assets
                     </span>
@@ -99,22 +140,15 @@ const EmDashboardLayout = () => {
                 </li>
 
                 <li>
-                  <NavLink
-                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="My-Team"
-                    to="/em-dashboard/my-team"
-                  >
-                    <RiTeamFill className="text-xl"></RiTeamFill>
-                    <span className="is-drawer-close:hidden">My-Team</span>
+                  <NavLink to="/em-dashboard/my-team">
+                    <RiTeamFill className="text-xl" />
+                    <span className="is-drawer-close:hidden">My Team</span>
                   </NavLink>
                 </li>
+
                 <li>
-                  <NavLink
-                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="Profile-Page"
-                    to="/em-dashboard/profile-page"
-                  >
-                    <AiFillProfile className="text-xl"></AiFillProfile>
+                  <NavLink to="/em-dashboard/profile-page">
+                    <AiFillProfile className="text-xl" />
                     <span className="is-drawer-close:hidden">
                       Profile Page (Shared)
                     </span>

@@ -30,8 +30,8 @@ import HrProfile from "../Pages/Profile/HrProfile";
 import EmProfile from "../Pages/Profile/EmProfile";
 import AdminDashboardHome from "../Pages/HrDashboard/DashboardHome/AdminDashboardHome";
 import EmployeeDashboardHome from "../Pages/EmDashboard/DashboardHome/EmployeeDashboardHome";
-import Navbar from "../Components/Navbar";
 import DownloadAssignedList from "../Components/DownloadAssignedList/DownloadAssignedList";
+import HrDashboardHome from "../Pages/HrDashboard/DashboardHome/HrDashboardHome";
 
 const router = createBrowserRouter([
   {
@@ -82,59 +82,39 @@ const router = createBrowserRouter([
     path: "hr-dashboard",
     element: (
       <Private>
-        <AdminRoute>
-          <HrDashboardLayout />
-        </AdminRoute>
+        <HrDashboardLayout />
       </Private>
     ),
     children: [
       {
         index: true,
         element: (
-          <AdminDashboardHome>
-            <DashboardHome />
-          </AdminDashboardHome>
+          <AdminRoute>
+            <AdminDashboardHome>
+              <HrDashboardHome></HrDashboardHome>
+            </AdminDashboardHome>
+          </AdminRoute>
         ),
       },
       {
         path: "add-asset",
-        element: (
-          <AdminRoute>
-            <AddAsset />
-          </AdminRoute>
-        ),
+        element: <AddAsset />,
       },
       {
-        path: "asset-List",
-        element: (
-          <AdminRoute>
-            <AssetList />
-          </AdminRoute>
-        ),
+        path: "asset-list",
+        element: <AssetList />,
       },
       {
         path: "all-requests",
-        element: (
-          <AdminRoute>
-            <AllRequests />
-          </AdminRoute>
-        ),
+        element: <AllRequests />,
       },
       {
         path: "my-employee",
-        element: (
-          <AdminRoute>
-            <MyEmployeeList />
-          </AdminRoute>
-        ),
+        element: <MyEmployeeList />,
       },
       {
         path: "upgrade-pakage",
-        element: (
-          <AdminRoute>
-            <UpgradePackage />
-          </AdminRoute>
-        ),
+        element: <UpgradePackage />,
       },
       {
         path: "payment-history",
@@ -154,11 +134,7 @@ const router = createBrowserRouter([
       },
       {
         path: "user-management",
-        element: (
-          <AdminRoute>
-            <UserManagement />
-          </AdminRoute>
-        ),
+        element: <UserManagement />,
       },
     ],
   },
